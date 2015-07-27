@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+
+-->
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    
+    <type type="teamcity.Build" extends="xlrelease.PythonScript">
+        <property name="scriptLocation" default="teamcity/Build.py" hidden="true" />
+        <property name="teamcityServer" category="input" label="Server" referenced-type="teamcity.Server" kind="ci"/>
+        <property name="username" category="input" label="username" required="true" />
+        <property name="password" password="true" category="input" required="true" />
+
+        <property name="buildID" category="input" label="Build Conf ID" />
+
+        <property name="buildNumber" category="output" />
+    </type>
+
+	<type type="teamcity.Server" extends="configuration.HttpConnection"/>
+</synthetic>
