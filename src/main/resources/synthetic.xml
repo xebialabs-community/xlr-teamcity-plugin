@@ -10,6 +10,7 @@
     
     
     <type type="teamcity.Build" extends="xlrelease.PythonScript">
+        <property name="iconLocation" default="teamcity/tc-logo.png" hidden="true" />
         <property name="scriptLocation" default="teamcity/Build.py" hidden="true" />
         <property name="teamcityServer" category="input" label="Server" referenced-type="teamcity.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="true" />
