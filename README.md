@@ -1,6 +1,6 @@
 # Preface #
 
-This document describes the xlr-teamcity-plugin.
+This document describes the xlr-teamcity-plugin implementation.
 
 See the **XL Release Reference Manual** for background information on XL Release and release concepts.
 
