@@ -6,7 +6,7 @@ See the **XL Release Reference Manual** for background information on XL Release
 
 # Overview #
 
-A plugin to trigger builds in TeamCity. Currently a very simple implementation which only supports triggering a build using the TeamCity buildConfID and returns the build number.
+A plugin to trigger builds in TeamCity. Currently a simple implementation which only supports triggering a build using the TeamCity buildConfID and returns the build number.
 
 ## Installation ##
 
