@@ -8,18 +8,66 @@
 -->
 <synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     
-    
     <type type="teamcity.Build" extends="xlrelease.PythonScript">
         <property name="iconLocation" default="teamcity/tc-logo.png" hidden="true" />
         <property name="scriptLocation" default="teamcity/Build.py" hidden="true" />
         <property name="teamcityServer" category="input" label="Server" referenced-type="teamcity.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
-
+        <property name="username" description="TeamCity Username" category="input" label="Username" required="true" />
+        <property name="password" password="true" label="Password" category="input" required="true" />
         <property name="buildID" category="input" label="Build Conf ID" />
-
         <property name="buildNumber" category="output" />
     </type>
-
+    <type type="teamcity.GetAgents" extends="xlrelease.PythonScript">
+        <property name="iconLocation" default="teamcity/tc-logo.png" hidden="true" />
+        <property name="scriptLocation" default="teamcity/GetAgents.py" hidden="true" />
+        <property name="teamcityServer" category="input" label="Server" referenced-type="teamcity.Server" kind="ci"/>
+        <property name="username" description="TeamCity Username" category="input" label="Username" required="true" />
+        <property name="password" password="true" label="Password" category="input" required="true" />
+        <property name="agents" category="output" kind="map_string_string" description="Provides a map of agent names and ids"/>
+    </type>
+    <type type="teamcity.GetPools" extends="xlrelease.PythonScript">
+        <property name="iconLocation" default="teamcity/tc-logo.png" hidden="true" />
+        <property name="scriptLocation" default="teamcity/GetPools.py" hidden="true" />
+        <property name="teamcityServer" category="input" label="Server" referenced-type="teamcity.Server" kind="ci"/>
+        <property name="username" description="TeamCity Username" category="input" label="Username" required="true" />
+        <property name="password" password="true" label="Password" category="input" required="true" />
+        <property name="pools" category="output" kind="map_string_string" description="Provides a map of pool names and ids"/>
+    </type>
+    <type type="teamcity.AssignToPool" extends="xlrelease.PythonScript">
+        <property name="iconLocation" default="teamcity/tc-logo.png" hidden="true" />
+        <property name="scriptLocation" default="teamcity/AssignToPool.py" hidden="true" />
+        <property name="teamcityServer" category="input" label="Server" referenced-type="teamcity.Server" kind="ci"/>
+        <property name="username" description="TeamCity Username" category="input" label="Username" required="true" />
+        <property name="password" password="true" label="Password" category="input" required="true" />
+        <property name="agentId" category="input" description="ID Number of Agent"/>
+        <property name="poolId" category="input" description="ID Number of Pool"/>
+    </type>
+    <type type="teamcity.AuthorizeAgent" extends="xlrelease.PythonScript">
+        <property name="iconLocation" default="teamcity/tc-logo.png" hidden="true" />
+        <property name="scriptLocation" default="teamcity/AuthorizeAgent.py" hidden="true" />
+        <property name="teamcityServer" category="input" label="Server" referenced-type="teamcity.Server" kind="ci"/>
+        <property name="username" description="TeamCity Username" category="input" label="Username" required="true" />
+        <property name="password" password="true" label="Password" category="input" required="true" />
+        <property name="agentEnabled" category="input" label="Agent Authorized" description="If True, Agent will be Authorized. If False, it will be Unauthorized." kind="boolean" required="false" default="true" />
+        <property name="agentId" category="input" label="Agent ID" required="true" />
+    </type>
+    <type type="teamcity.EnableAgent" extends="xlrelease.PythonScript">
+        <property name="iconLocation" default="teamcity/tc-logo.png" hidden="true" />
+        <property name="scriptLocation" default="teamcity/EnableAgent.py" hidden="true" />
+        <property name="teamcityServer" category="input" label="Server" referenced-type="teamcity.Server" kind="ci"/>
+        <property name="username" description="TeamCity Username" category="input" label="Username" required="true" />
+        <property name="password" password="true" label="Password" category="input" required="true" />
+        <property name="comment" category="input" required="true" description="Comment on change within TeamCity" />
+        <property name="agentEnabled" category="input" label="Agent Enabled" description="If True, Agent will be enabled. If False, it will be disabled." kind="boolean" required="false" default="true" />
+        <property name="agentId" category="input" label="Agent ID" required="true" />
+    </type>
+    <type type="teamcity.DeleteAgent" extends="xlrelease.PythonScript">
+        <property name="iconLocation" default="teamcity/tc-logo.png" hidden="true" />
+        <property name="scriptLocation" default="teamcity/DeleteAgent.py" hidden="true" />
+        <property name="teamcityServer" category="input" label="Server" referenced-type="teamcity.Server" kind="ci"/>
+        <property name="username" description="TeamCity Username" category="input" label="Username" required="true" />
+        <property name="password" password="true" label="Password" category="input" required="true" />
+        <property name="agentId" category="input" label="Agent ID" required="true" />
+    </type>
 	<type type="teamcity.Server" extends="configuration.HttpConnection"/>
 </synthetic>
