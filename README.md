@@ -21,44 +21,45 @@ Place the latest released version under the `plugins` dir.
   * `buildConfID` - The buildConfID for the TeamCity build job, usually found in the settings screen for the build job.
   * `buildNumber` - Output field where the build number will be set on successful completion
 
-+ Get Agents
-Outputs a Map of Agent Names and IDs
++ Get Agents: 
+  Outputs a Map of Agent Names and IDs
   * `server` - TeamCity server definition (see below)
   * `username` - Used to override the TeamCity username - optional 
   * `password` - Used to override the TeamCity password - optional
   
-+ Get Pools
-Outputs a Map of Pool Names and IDs
++ Get Pools: 
+  Outputs a Map of Pool Names and IDs
   * `server` - TeamCity server definition (see below)
   * `username` - Used to override the TeamCity username - optional 
   * `password` - Used to override the TeamCity password - optional
   
-+ Assign to Pool
-Assigns an Agent to a Pool
++ Assign to Pool: 
+  Assigns an Agent to a Pool
+
   * `server` - TeamCity server definition (see below)
   * `username` - Used to override the TeamCity username - optional 
   * `password` - Used to override the TeamCity password - optional
   * `agentId` - ID of the Agent
   * `poolId` - ID of the Pool
   
-+ Authorize Agent
-Sets an Agent's authorized state
++ Authorize Agent: 
+  Sets an Agent's authorized state
   * `server` - TeamCity server definition (see below)
   * `username` - Used to override the TeamCity username - optional 
   * `password` - Used to override the TeamCity password - optional
   * `agentId` - ID of the Agent
   * `agentEnabled` - boolean - whether the Agent should be Authorized or not
 
-+ Authorize Agent
-Sets an Agent's enabled state
++ Authorize Agent:
+  Sets an Agent's enabled state
   * `server` - TeamCity server definition (see below)
   * `username` - Used to override the TeamCity username - optional 
   * `password` - Used to override the TeamCity password - optional
   * `agentId` - ID of the Agent
   * `agentEnabled` - boolean - whether the Agent should be Enabled or not
 
-+ Delete Agent
-Removes an Agent. Service must be stopped on the server
++ Delete Agent:
+  Removes an Agent. Service must be stopped on the server
   * `server` - TeamCity server definition (see below)
   * `username` - Used to override the TeamCity username - optional 
   * `password` - Used to override the TeamCity password - optional
