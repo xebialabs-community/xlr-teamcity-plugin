@@ -7,5 +7,5 @@ deploy:
   skip_cleanup: true
   on:
     all_branches: true
-    tags: false
-repo: xebialabs-community/xlr-teamcity-plugin
+    tags: true
+    repo: xebialabs-community/xlr-teamcity-plugin
