@@ -1,4 +1,8 @@
 language: java
+notifications:
+  hipchat:
+    rooms:
+      secure: OlIO4DA0xfqdHqS2ytSfDucjIoncHBgLDFjDi1u+qsLOPBeYpYuNJOZkW531yKPFS/na8BjS5WzjrdZW1Wa2I41X2KdNEqOBPxCNsDlvRzEsMUXGCekTEkIaVKgyD8LsAqku+I0CFRsYCQCxRz6yufEenDf7VwdhbM/345mopkI=
 deploy:
   provider: releases
   api_key: 
