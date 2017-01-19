@@ -45,4 +45,5 @@ if queue_response.isSuccessful():
             sys.exit(1)
 else:
     print('Queuing failed for buildID: ' + buildID)
+    sys.exit(1)
 
