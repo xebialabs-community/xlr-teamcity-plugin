@@ -31,7 +31,7 @@ if queue_response.isSuccessful():
                 # Have a build completed
                 if root.attrib['status'] == 'SUCCESS':
                     buildNumber = root.attrib['number']
-                    print('Build successful with build numner: ' + buildNumber)
+                    print('Build successful with build number: ' + buildNumber)
                     sys.exit(0)
                 else:
                     print('Build failed, run ID: ' + runID)
@@ -45,4 +45,5 @@ if queue_response.isSuccessful():
             sys.exit(1)
 else:
     print('Queuing failed for buildID: ' + buildID)
+    sys.exit(1)
 
