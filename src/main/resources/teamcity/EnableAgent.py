@@ -16,7 +16,7 @@ amend_response = httpRequest.put(authUrl,body,contentType='application/xml')
 if amend_response.isSuccessful():
     print("isSuccessful")
     print(amend_response.getResponse())
-    
+
 else:
     print("isNotSuccessful")
     raise Exception(amend_response.getResponse())
