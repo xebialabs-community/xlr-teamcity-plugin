@@ -15,7 +15,6 @@ queue_response = httpRequest.post(agentUrl,body,contentType='application/xml')
 
 if queue_response.isSuccessful():
     print(queue_response.getResponse())
-    
 else:
     print("isNotSuccessful")
     raise Exception(queue_response.getResponse())
