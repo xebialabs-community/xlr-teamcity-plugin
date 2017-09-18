@@ -3,7 +3,8 @@ deploy:
   provider: releases
   api_key:
     secure: HkR+LHrmUj/yWPjJGilvZlyrdbum+Z2wexP7+ynMWf2Q7mlroBNERv06Ps/qSfBpKiGNst7cYWfX4J1s25hUcaeDpDQSorV/IMSy65dIMi3QHtlnTp/PdF74qrroXBtvxYeCzXVPUSU3txhiZqJiVZ+8+zd2fqj+ITI8s4viAx+X7G34d0h3miNHtPkUtUVDXWFyMU/MuYNRJHjXWY4WAsFPJWhdk8jKKEwLgF3YBrYGlbwcTl2X/3mtk3GoUpD1Q+H5Y6jJHvbM6cV4juPy/jtubjTAQDgnhOohN6/R+dV/N0IocLTN2uxasZbj5r1G3942/Gj7SwHJv3WaMY7NpH3zOo03YTbYU90rMjnpQwBrtNYShCi/w/mnCFOOX73dyZaBinECAHlu0GHxXixkUI/ZGuh8a8PUHFnmpdT7tLe89lhnkZnywPlKV75/Ac9fBmUPxTSwod3Fy/4Poir+TVMP5nmZNeIbRYrx+XqYJXf6ho9JDrgHDc0Dr4nMxSdIKbI68tKVRFd8iKBQXvltu22HqNsPOHDjKCFUtm4xAHk2fkgug8e/5yjS2MMp7X08thSt1fmEpho/lEJoo1zbMII/HyJBDOY8jXfkVOGaR2gcqLy7Mn0z/ZksxWxV66hQwzpoxlnFtsDC8xStrs4gymge5zbq8jKj02mvwyXqCO8=
-  file: build/libs/xlr-teamcity-plugin-1.0.2.jar
+  file_glob: true
+  file: build/libs/*
   skip_cleanup: true
   on:
     all_branches: true
