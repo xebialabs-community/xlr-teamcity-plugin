@@ -1,3 +1,5 @@
 .gradle
+.idea
 build
+xlr-teamcity-plugin.iml
 

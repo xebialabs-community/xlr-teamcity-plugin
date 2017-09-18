@@ -4,17 +4,25 @@ This document describes the xlr-teamcity-plugin implementation.
 
 See the **XL Release Reference Manual** for background information on XL Release and release concepts.
 
-[![Build Status][xlr-teamcity-travis-image] ][xlr-teamcity-travis-url]
-[![Build Status][xlr-teamcity-codacy-image] ][xlr-teamcity-codacy-url]
-[![Build Status][xlr-teamcity-code-climate-image] ][xlr-teamcity-code-climate-url]
+# CI status #
+
+[![Build Status][xlr-teamcity-plugin-travis-image] ][xlr-teamcity-plugin-travis-url]
+[![Build Status][xlr-teamcity-plugin-codacy-image] ][xlr-teamcity-plugin-codacy-url]
+[![Build Status][xlr-teamcity-plugin-code-climate-image] ][xlr-teamcity-plugin-code-climate-url]
+[![License: MIT][xlr-teamcity-plugin-license-image] ][xlr-teamcity-plugin-license-url]
+[![Github All Releases][xld-teamcity-plugin-downloads-image] ]()
 
 
-[xlr-teamcity-travis-image]: https://travis-ci.org/xebialabs-community/xlr-teamcity-plugin.svg?branch=master
-[xlr-teamcity-travis-url]: https://travis-ci.org/xebialabs-community/xlr-teamcity-plugin
-[xlr-teamcity-codacy-image]: https://api.codacy.com/project/badge/Grade/b78313b1eb1b4b058dc4512b4d48c26f
-[xlr-teamcity-codacy-url]: https://www.codacy.com/app/rvanstone/xlr-teamcity-plugin
-[xlr-teamcity-code-climate-image]: https://codeclimate.com/github/xebialabs-community/xlr-teamcity-plugin/badges/gpa.svg
-[xlr-teamcity-code-climate-url]: https://codeclimate.com/github/xebialabs-community/xlr-teamcity-plugin
+
+[xlr-teamcity-plugin-travis-image]: https://travis-ci.org/xebialabs-community/xlr-teamcity-plugin.svg?branch=master
+[xlr-teamcity-plugin-travis-url]: https://travis-ci.org/xebialabs-community/xlr-teamcity-plugin
+[xlr-teamcity-plugin-codacy-image]: https://api.codacy.com/project/badge/Grade/b78313b1eb1b4b058dc4512b4d48c26f
+[xlr-teamcity-plugin-codacy-url]: https://www.codacy.com/app/rvanstone/xlr-teamcity-plugin
+[xlr-teamcity-plugin-code-climate-image]: https://codeclimate.com/github/xebialabs-community/xlr-teamcity-plugin/badges/gpa.svg
+[xlr-teamcity-plugin-code-climate-url]: https://codeclimate.com/github/xebialabs-community/xlr-teamcity-plugin
+[xlr-teamcity-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
+[xlr-teamcity-plugin-license-url]: https://opensource.org/licenses/MIT
+[xlr-teamcity-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-teamcity-plugin/total.svg
 
 
 # Overview #
