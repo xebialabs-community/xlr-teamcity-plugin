@@ -10,7 +10,7 @@ See the **XL Release Reference Manual** for background information on XL Release
 [![Build Status][xlr-teamcity-plugin-codacy-image] ][xlr-teamcity-plugin-codacy-url]
 [![Build Status][xlr-teamcity-plugin-code-climate-image] ][xlr-teamcity-plugin-code-climate-url]
 [![License: MIT][xlr-teamcity-plugin-license-image] ][xlr-teamcity-plugin-license-url]
-[![Github All Releases][xld-teamcity-plugin-downloads-image] ]()
+[![Github All Releases][xlr-teamcity-plugin-downloads-image] ]()
 
 
 
