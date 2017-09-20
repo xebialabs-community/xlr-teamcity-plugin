@@ -13,12 +13,11 @@ from httputil.HttpRequest import HttpRequest
 
 httpRequest = HttpRequest(teamcityServer, username, password)
 urlPrefix = 'httpAuth/app/rest/'
-agentUrl = urlPrefix + 'agents/id:'+agentId 
+agentUrl = urlPrefix + 'agents/id:'+agentId
 queue_response = httpRequest.delete(agentUrl,contentType='text/plain')
 
 if queue_response.isSuccessful():
     print(queue_response.getResponse())
-    
 else:
     print("isNotSuccessful")
     raise Exception(queue_response.getResponse())

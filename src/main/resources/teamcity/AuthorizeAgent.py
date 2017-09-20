@@ -18,7 +18,7 @@ amend_response = httpRequest.put(agentUrl,body,contentType='text/plain')
 
 if amend_response.isSuccessful():
     print(amend_response.getResponse())
-    
+
 else:
     print("isNotSuccessful")
     raise Exception(amend_response.getResponse())
