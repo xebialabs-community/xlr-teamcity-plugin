@@ -1,0 +1,15 @@
+xlr:
+  image: xebialabs/xlr_dev_run:v7.1.0.1
+  volumes:
+    - ~/xl-licenses:/license
+    - ./../../../../:/data
+  links:
+   - teamcity
+  ports:
+   - "15516:5516"
+
+teamcity:
+  image: jetbrains/teamcity-server:2017.1.4
+  ports:
+     - "18881:8111"
+
