@@ -53,5 +53,9 @@
     <type type="teamcity.DeleteAgent" extends="teamcity.Task">
         <property name="agentId" category="input" label="Agent ID" required="true"/>
     </type>
-    <type type="teamcity.Server" extends="configuration.HttpConnection"/>
+    <type type="teamcity.Server" extends="configuration.HttpConnection">
+        <property name="scriptLocation" hidden="true" default="configuration/HttpConnectionCheck.py"/>
+        <property name="checkConfigurationContentType" hidden="true" default="application/json"/>
+        <property name="checkConfigurationPath" hidden="true" default="/app/rest/projects"/>
+    </type>
 </synthetic>
