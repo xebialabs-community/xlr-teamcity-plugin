@@ -17,7 +17,19 @@ poll_interval = 5
 httpRequest = HttpRequest(teamcityServer, username, password)
 
 queueBuildURL = 'httpAuth/app/rest/buildQueue'
+
 buildBody = '<build><buildType id="' + buildID + '"/></build>'
+if len(buildProperties) > 0:
+    propXML = "<properties>"
+    for k in buildProperties.keys():
+       propXML = "%s<property name=\"%s\" value=\"%s\"/>" % ( propXML, k, buildProperties[k] )
+    propXML = "%s</properties>" % propXML
+else:
+    print "nothing to do here"
+    propXML = ""
+
+buildBody = '<build><buildType id="%s"/>%s</build>' % ( buildID, propXML )
+
 
 queue_response = httpRequest.post(queueBuildURL, buildBody, contentType='application/xml')
 
@@ -50,4 +62,3 @@ if queue_response.isSuccessful():
 else:
     print('Queuing failed for buildID: ' + buildID)
     sys.exit(1)
-

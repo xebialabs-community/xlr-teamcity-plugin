@@ -9,7 +9,7 @@
 #
 
 xlr:
-  image: xebialabs/xlr_dev_run:v7.1.0.1
+  image: xebialabsunsupported/xlr_dev_run:v8.0.0.2
   volumes:
     - ~/xl-licenses:/license
     - ./../../../../:/data
@@ -19,7 +19,6 @@ xlr:
    - "15516:5516"
 
 teamcity:
-  image: jetbrains/teamcity-server:2017.1.4
+  image: jetbrains/teamcity-server:2018.1.1
   ports:
      - "18881:8111"
-

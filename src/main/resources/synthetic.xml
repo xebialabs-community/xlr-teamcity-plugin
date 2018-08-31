@@ -22,6 +22,7 @@
 
     <type type="teamcity.Build" extends="teamcity.Task">
         <property name="buildID" category="input" label="Build Conf ID"/>
+        <property name="buildProperties" category="input" kind="map_string_string" label="Build Properties" />
         <property name="buildNumber" category="output"/>
     </type>
     <type type="teamcity.GetAgents" extends="teamcity.Task">
