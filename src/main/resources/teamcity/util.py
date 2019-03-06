@@ -9,9 +9,7 @@
 #
 
 def error(text, response=None):
-    print
-    print u"#### Error: {0} ".format(text)
+    print("#### Error: {} ".format(text))
     if response is not None:
         response.errorDump()
-    print
     raise Exception(text)
