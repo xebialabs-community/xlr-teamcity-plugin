@@ -35,7 +35,7 @@ if len(buildProperties) > 0:
             }
         )
 
-queue_response = request.post(queueBuildURL, buildBody, contentType='application/json')
+queue_response = request.post(queueBuildURL, json.dumps(buildBody), contentType='application/json')
 
 if not queue_response.isSuccessful():
     error('Queuing failed for build configuration ID: ' + buildID, queue_response)
