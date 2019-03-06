@@ -11,7 +11,7 @@
 import sys, time
 import com.xhaus.jyson.JysonCodec as json
 from xlrelease.HttpRequest import HttpRequest
-from util import error
+from teamcity.util import error
 
 poll_interval = 5
 
