@@ -9,44 +9,48 @@
 #
 
 import sys, time, ast, re
-from xml.etree import ElementTree as ET
+import com.xhaus.jyson.JysonCodec as json
 from httputil.HttpRequest import HttpRequest
+from teamcity.util import error
 
 poll_interval = 5
 
-httpRequest = HttpRequest(teamcityServer, username, password)
+request = HttpRequest(teamcityServer, username, password)
 
 queueBuildURL = 'httpAuth/app/rest/buildQueue'
 
-buildBody = '<build><buildType id="' + buildID + '"/></build>'
+buildBody = {
+    'buildType': {
+        'id': buildId
+    },
+}
+
 if len(buildProperties) > 0:
-    propXML = "<properties>"
-    for k in buildProperties.keys():
-       propXML = "%s<property name=\"%s\" value=\"%s\"/>" % ( propXML, k, buildProperties[k] )
-    propXML = "%s</properties>" % propXML
-else:
-    print "nothing to do here"
-    propXML = ""
+    buildBody['properties'] = {"property": []}
+    for prop in buildProperties.keys():
+        buildBody["properties"]["property"].append(
+            {
+                "name": prop,
+                "value": buildProperties[prop]
+            }
+        )
 
-buildBody = '<build><buildType id="%s"/>%s</build>' % ( buildID, propXML )
-
-
-queue_response = httpRequest.post(queueBuildURL, buildBody, contentType='application/xml')
+queue_response = request.post(queueBuildURL, buildBody, contentType='application/json')
 
 if queue_response.isSuccessful():
     # polls until the job completes
-    root = ET.fromstring(queue_response.getResponse())
-    runID = root.attrib['id']
+    resp = json.loads(queue_response.response)
+    runID = resp['id']
     statusURL = 'httpAuth/app/rest/buildQueue/taskId:' + runID
     while True:
         time.sleep(poll_interval)
-        status_response = httpRequest.get(statusURL, contentType='application/xml')
+        status_response = request.get(statusURL, contentType='application/xml')
         if status_response.isSuccessful():
-            root = ET.fromstring(status_response.getResponse())
-            if root.attrib['state'] == 'finished':
+            resp = json.loads(status_response.response)
+            if resp['state'] == 'finished':
                 # Have a build completed
-                if root.attrib['status'] == 'SUCCESS':
-                    buildNumber = root.attrib['number']
+                if resp['status'] == 'SUCCESS':
+                    buildNumber = resp['number']
                     print('Build successful with build number: ' + buildNumber)
                     sys.exit(0)
                 else:
@@ -57,8 +61,6 @@ if queue_response.isSuccessful():
                 print('Waiting for buildID: ' + buildID + ' to start/finish')
                 continue
         else:
-            print('Status request failed')
-            sys.exit(1)
+            error('Status request failed', status_response)
 else:
-    print('Queuing failed for buildID: ' + buildID)
-    sys.exit(1)
+    error('Queuing failed for buildID: ' + buildID, queue_response)
