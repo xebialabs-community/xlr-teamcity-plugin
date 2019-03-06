@@ -9,7 +9,7 @@
 #
 
 from xml.etree import ElementTree as ET
-from httputil.HttpRequest import HttpRequest
+from xlrelease.HttpRequest import HttpRequest
 
 httpRequest = HttpRequest(teamcityServer, username, password)
 urlPrefix = 'httpAuth/app/rest/'
