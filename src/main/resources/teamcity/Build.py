@@ -21,7 +21,7 @@ queueBuildURL = 'httpAuth/app/rest/buildQueue'
 
 buildBody = {
     'buildType': {
-        'id': buildId
+        'id': buildID
     },
 }
 
