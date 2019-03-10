@@ -23,7 +23,9 @@
     <type type="teamcity.Build" extends="teamcity.Task">
         <property name="buildID" category="input" label="Build Conf ID" required="true"/>
         <property name="buildProperties" category="input" kind="map_string_string" label="Build Properties" required="false" />
+        <property name="pollInterval" category="input" kind="integer" default="5"/>
         <property name="buildNumber" category="output"/>
+        <property name="taskID" label="Task ID" category="output"/>
     </type>
     <type type="teamcity.GetAgents" extends="teamcity.Task">
         <property name="agents" category="output" kind="map_string_string"
