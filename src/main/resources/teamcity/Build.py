@@ -49,8 +49,8 @@ while True:
     status_response = request.get(statusURL, contentType='application/json')
     if status_response.isSuccessful():
         resp = json.loads(status_response.response)
-        buildNumber = resp['number']
         if resp['state'] == 'finished':
+            buildNumber = resp['number']
             # Have a build completed
             if resp['status'] == 'SUCCESS':
                 print('Build successful - build ' + str(buildNumber))
@@ -60,7 +60,7 @@ while True:
                 print(status_response.getResponse())
                 sys.exit(1)
         else:
-            print('Waiting for build ' + str(buildNumber) + ' to start/finish')
+            print('Waiting for the build to complete - task ID  ' + str(taskID))
     else:
         error(
             'Request failed - couldn\'t poll for status of build from task ID ' + str(taskID),
