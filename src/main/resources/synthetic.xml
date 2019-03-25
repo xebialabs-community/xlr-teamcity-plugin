@@ -10,8 +10,9 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -->
-<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd"
-           xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" 
+    xmlns="http://www.xebialabs.com/deployit/synthetic" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <type type="teamcity.Task" extends="xlrelease.PythonScript" virtual="true">
         <property name="iconLocation" default="teamcity/tc-logo.png" hidden="true"/>
@@ -28,28 +29,22 @@
         <property name="taskID" label="Task ID" category="output"/>
     </type>
     <type type="teamcity.GetAgents" extends="teamcity.Task">
-        <property name="agents" category="output" kind="map_string_string"
-                  description="Provides a map of agent names and ids"/>
+        <property name="agents" category="output" kind="map_string_string" description="Provides a map of agent names and ids"/>
     </type>
     <type type="teamcity.GetPools" extends="teamcity.Task">
-        <property name="pools" category="output" kind="map_string_string"
-                  description="Provides a map of pool names and ids"/>
+        <property name="pools" category="output" kind="map_string_string" description="Provides a map of pool names and ids"/>
     </type>
     <type type="teamcity.AssignToPool" extends="teamcity.Task">
         <property name="agentId" category="input" description="ID Number of Agent"/>
         <property name="poolId" category="input" description="ID Number of Pool"/>
     </type>
     <type type="teamcity.AuthorizeAgent" extends="teamcity.Task">
-        <property name="agentEnabled" category="input" label="Agent Authorized"
-                  description="If True, Agent will be Authorized. If False, it will be Unauthorized." kind="boolean"
-                  required="false" default="true"/>
+        <property name="agentEnabled" category="input" label="Agent Authorized" description="If True, Agent will be Authorized. If False, it will be Unauthorized." kind="boolean" required="false" default="true"/>
         <property name="agentId" category="input" label="Agent ID" required="true"/>
     </type>
     <type type="teamcity.EnableAgent" extends="teamcity.Task">
         <property name="comment" category="input" required="true" description="Comment on change within TeamCity"/>
-        <property name="agentEnabled" category="input" label="Agent Enabled"
-                  description="If True, Agent will be enabled. If False, it will be disabled." kind="boolean"
-                  required="false" default="true"/>
+        <property name="agentEnabled" category="input" label="Agent Enabled" description="If True, Agent will be enabled. If False, it will be disabled." kind="boolean" required="false" default="true"/>
         <property name="agentId" category="input" label="Agent ID" required="true"/>
     </type>
     <type type="teamcity.DeleteAgent" extends="teamcity.Task">
