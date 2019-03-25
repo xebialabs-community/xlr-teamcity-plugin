@@ -1,16 +1,11 @@
 # Preface #
 
-This document describes the xlr-teamcity-plugin implementation.
-
-See the **XL Release Reference Manual** for background information on XL Release and release concepts.
-
-# CI status #
-
 [![Build Status][xlr-teamcity-plugin-travis-image] ][xlr-teamcity-plugin-travis-url]
 [![Build Status][xlr-teamcity-plugin-codacy-image] ][xlr-teamcity-plugin-codacy-url]
 [![Build Status][xlr-teamcity-plugin-code-climate-image] ][xlr-teamcity-plugin-code-climate-url]
 [![License: MIT][xlr-teamcity-plugin-license-image] ][xlr-teamcity-plugin-license-url]
 [![Github All Releases][xlr-teamcity-plugin-downloads-image] ]()
+[![Known Vulnerabilities][xlr-teamcity-plugin-snyk-image] ][xlr-teamcity-plugin-snyk-url]
 
 
 
@@ -23,6 +18,8 @@ See the **XL Release Reference Manual** for background information on XL Release
 [xlr-teamcity-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [xlr-teamcity-plugin-license-url]: https://opensource.org/licenses/MIT
 [xlr-teamcity-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-teamcity-plugin/total.svg
+[xlr-teamcity-plugin-snyk-image]: https://snyk.io/test/github/xebialabs-community/xlr-teamcity-plugin/badge.svg
+[xlr-teamcity-plugin-snyk-url]: https://snyk.io/test/github/xebialabs-community/xlr-teamcity-plugin
 
 
 # Overview #

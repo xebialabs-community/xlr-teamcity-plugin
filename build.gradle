@@ -1,7 +1,7 @@
 plugins {
-  id "com.github.hierynomus.license" version "0.14.0"
+  id "com.github.hierynomus.license" version "0.15.0"
   id "com.xebialabs.xl.docker" version "1.1.0"
-  id "nebula.release" version "6.0.0"
+  id "nebula.release" version "9.2.0"
 }
 
 apply plugin: 'java'
@@ -9,33 +9,17 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 
-if (!project.hasProperty('release.scope')) {
-  project.ext['release.scope'] = 'patch'
-}
-if (!project.hasProperty('release.useLastTag')) {
-  project.ext['release.useLastTag'] = true
-}
-
-
 xlDocker {
   compileImage = 'xebialabsunsupported/xlr_dev_compile'
-  compileVersion = 'v8.0.0.1'
+  compileVersion = '8.5.4'
   runImage = 'xebialabsunsupported/xlr_dev_run'
-  runVersion = 'v8.0.0.2'
+  runVersion = '8.5.4'
   runPortMapping = '15516:5516'
-}
-
-if (!project.hasProperty('release.scope')) {
-  project.ext['release.scope'] = 'patch'
-}
-
-if (!project.hasProperty('release.useLastTag')) {
-  project.ext['release.useLastTag'] = true
 }
 
 license {
   header rootProject.file('License.md')
-  strictCheck false
+  strictCheck true
   excludes(["**/*.png"])
   ext.year = Calendar.getInstance().get(Calendar.YEAR)
   ext.name = 'XEBIALABS'
