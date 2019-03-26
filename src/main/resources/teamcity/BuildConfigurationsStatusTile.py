@@ -10,12 +10,24 @@
 
 import logging
 
+import teamcity
 from teamcity import TeamCityClient
 
-logger = logging.getLogger("TeamCity")
-logger.info("Executing %s" % task.getTaskType())
+reload(teamcity)
 
-teamcity_client = TeamCityClient(teamcityServer, username=None, password=None, logger=logger)
-response = teamcity_client.teamcity_build(locals())
-taskID = str(response['id'])
-task.schedule('teamcity/Build.wait-for-build.py')
+logger = logging.getLogger("TeamCity")
+logger.info("Executing BuildConfigurationsStatusTile")
+
+teamcity_client = TeamCityClient(
+    teamcityServer, username=None, password=None, logger=logger)
+response = teamcity_client.get_build_configuration_statuses(locals())
+
+statuses = []
+project_name = ""
+for build_configuration in response['buildType']:
+    project_name = build_configuration["projectName"]
+    statuses.append({"name": build_configuration['name'], "status": build_configuration['builds']['build'][0]['status'],
+                     "url": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id'])})
+projectStatus = {"name": project_name,
+                 "url": "%s/app/rest/builds/aggregated/strob:(buildType:(project:(id:%s)))/statusIcon.svg" % (teamcityServer["url"], project)}
+data = {"statuses": statuses, "projectStatus": projectStatus}

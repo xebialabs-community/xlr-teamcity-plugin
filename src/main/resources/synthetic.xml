@@ -59,11 +59,29 @@
         <property name="agentId" category="input" description="ID Number of Agent"/>
         <property name="poolId" category="input" description="ID Number of Pool"/>
     </type>
-    
-    
+
+
     <type type="teamcity.Server" extends="configuration.HttpConnection">
         <property name="scriptLocation" hidden="true" default="configuration/HttpConnectionCheck.py"/>
         <property name="checkConfigurationContentType" hidden="true" default="application/json"/>
         <property name="checkConfigurationPath" hidden="true" default="/app/rest/projects"/>
     </type>
+
+    <type type="teamcity.BuildConfigurationsStatusTile" label="TeamCity Build Configurations Status" extends="xlrelease.Tile" description="Display the status for all build configurations in a project.">
+
+        <!-- Path to the HTML template of the dashboard view of the tile -->
+        <property name="uri" hidden="true" default="teamcity/BuildConfigurationsStatusTile/build-configurations-status-tile-summary-view.html" />
+        <!-- Title of the tile, this property is predefined in the parent type, but here you override its default value -->
+        <property name="title" description="Display name of the tile" default="Build Configurations Status"/>
+
+        <property name="supportedScopes" kind="list_of_string" default="global,folder,release" hidden="true"/>
+
+        <!-- Tile configuration properties -->
+        <property category="input" name="teamcityServer" referenced-type="teamcity.Server" kind="ci" label="Server" description="TeamCity server id to connect to."/>
+        <property category="input" name="username" required="false" description="Overrides the username used to connect to the server."/>
+        <property category="input" name="password" password="true" required="false" description="Overrides the password used to connect to the server."/>
+        <property category="input" name="project" required="true" default="" description="Project id to fetch all the build configurations from."/>
+        
+    </type>
+
 </synthetic>

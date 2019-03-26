@@ -11,10 +11,7 @@
 import sys
 import logging
 
-import teamcity
 from teamcity import TeamCityClient
-
-reload(teamcity)
 
 logger = logging.getLogger("TeamCity")
 logger.info("Executing %s" % task.getTaskType())
