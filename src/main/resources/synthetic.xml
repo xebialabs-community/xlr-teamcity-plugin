@@ -75,6 +75,7 @@
         <property name="title" description="Display name of the tile" default="Build Configurations Status"/>
 
         <property name="supportedScopes" kind="list_of_string" default="global,folder,release" hidden="true"/>
+        <property name="expirationTime" kind="integer" hidden="true" default="10" description="Expiration time for a tile cache (in seconds)."/>
 
         <!-- Tile configuration properties -->
         <property category="input" name="teamcityServer" referenced-type="teamcity.Server" kind="ci" label="Server" description="TeamCity server id to connect to."/>

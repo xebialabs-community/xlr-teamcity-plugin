@@ -22,12 +22,12 @@
             var projectStatus = response.data.data.projectStatus
             var statuses = response.data.data.statuses;
             statuses.forEach(function (statusData) {
-                $("#statuses").append(statusData.name + 
-                    ' <span class="status-message"><img src="' + statusData.url + '" alt="' + statusData.status + '"/></span>'
+                $("#statuses").append('<tr><td>'+ statusData.name + 
+                    '</td><td><span class="status-message"><img src="' + statusData.url + '" alt="' + statusData.status + '"/></span></td></tr>'
                 );
             })
             var projectId = window.xlrelease.tile.properties.project;
-            $("#title").append(projectStatus.name + ' <span class="status-message"><img src="' + projectStatus.url + '" alt="' + projectId + '"/></span>');
+            $("#title").append('Project: ' + projectStatus.name + ' <span class="status-message"><img src="' + projectStatus.url + '" alt="' + projectId + '"/></span>');
         });
 
        
@@ -38,8 +38,8 @@
 <body>
     <div id="title"></div>
     <div class="build-configurations-status-tile-summary">
-        <div id="statuses">
-        </div>
+        <table id="statuses">
+        </table>
     </div>
 </body>
 
