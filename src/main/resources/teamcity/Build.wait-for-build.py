@@ -9,39 +9,36 @@
 #
 
 import sys
-import com.xhaus.jyson.JysonCodec as json
-from xlrelease.HttpRequest import HttpRequest
-from teamcity.util import error
+import logging
 
-request = HttpRequest(teamcityServer, username, password)
-statusURL = 'httpAuth/app/rest/buildQueue/taskId:' + str(taskID)
-status_response = request.get(statusURL, contentType='application/json')
+import teamcity
+from teamcity import TeamCityClient
 
-if not status_response.isSuccessful():
-    error(
-        'Request failed - couldn\'t poll for status of build from task ID ' + taskID,
-        status_response
-    )
+reload(teamcity)
 
-resp = json.loads(status_response.response)
+logger = logging.getLogger("TeamCity")
+logger.info("Executing %s" % task.getTaskType())
 
-if resp['state'] == 'finished':
-    buildNumber = resp['number']
+teamcity_client = TeamCityClient(teamcityServer, username=None, password=None, logger=logger)
+response = teamcity_client.teamcity_wait_for_build(locals())
+
+if response['state'] == 'finished':
+    buildNumber = response['number']
     # Have a build completed
-    if resp['status'] == 'SUCCESS':
+    if response['status'] == 'SUCCESS':
         print('Build successful - build ' + str(buildNumber))
         sys.exit(0)
     else:
         print('Build failed - build ' + str(buildNumber))
-        print(status_response.getResponse())
+        print(response)
         sys.exit(1)
 else:
-    if 'waitReason' in resp.keys():
+    if 'waitReason' in response.keys():
         task.setStatusLine(
-            'Build is ' + resp['state'] + \
-            '.  ' + resp['waitReason'] + '...'
+            'Build is ' + response['state'] + \
+            '.  ' + response['waitReason'] + '...'
         )
         task.schedule("teamcity/Build.wait-for-build.py", pollInterval)
     else:
-        task.setStatusLine('Build is ' + resp['state'] + '...')
+        task.setStatusLine('Build is ' + response['state'] + '...')
         task.schedule("teamcity/Build.wait-for-build.py", pollInterval)
