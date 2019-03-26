@@ -1,4 +1,9 @@
 language: java
+script: "./gradle/buildViaTravis.sh"
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 deploy:
   provider: releases
   api_key:
