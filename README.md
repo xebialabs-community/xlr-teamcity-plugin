@@ -91,3 +91,7 @@ Place the latest released version under the `plugins` dir.
   * `password` - Password for the default user
   * `proxyHost` - Proxy host if required
   * `proxyPort` - Proxy port if required
+
+## Tiles
+
++ BuildConfigurationsStatusTile: Displays the build status for all Build Types within a certain project. Remark: The rendering of the status images is browser based.
