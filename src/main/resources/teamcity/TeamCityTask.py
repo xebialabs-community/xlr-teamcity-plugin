@@ -8,17 +8,17 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-from xlrelease.HttpRequest import HttpRequest
+import logging
 
-httpRequest = HttpRequest(teamcityServer, username, password)
-urlPrefix = 'httpAuth/app/rest/'
-agentUrl = urlPrefix + 'agents/id:'+agentId + '/authorized'
-body = '' + str(agentEnabled).lower()
-amend_response = httpRequest.put(agentUrl,body,contentType='text/plain')
+import teamcity
+from teamcity import TeamCityClient
 
-if amend_response.isSuccessful():
-    print(amend_response.getResponse())
+reload(teamcity)
 
-else:
-    print("isNotSuccessful")
-    raise Exception(amend_response.getResponse())
+logger = logging.getLogger("TeamCity")
+logger.info("Executing %s" % task.getTaskType())
+
+teamcity_client = TeamCityClient(teamcityServer, username=None, password=None, logger=logger)
+method = str(task.getTaskType()).lower().replace('.', '_')
+call = getattr(teamcity_client, method)
+output = call(locals())
