@@ -133,7 +133,7 @@ class TeamCityClient(object):
         return response.json()
 
     def get_build_configuration_statuses(self, variables):
-        request_url = self.host + "/app/rest/buildTypes?locator=affectedProject:(id:%s)&fields=buildType(id,name,projectName,builds($locator(running:false,canceled:false,count:1),build(number,status,statusText)))" % variables['project']
+        request_url = self.host + "/app/rest/buildTypes?locator=affectedProject:(id:%s)&fields=buildType(id,name,projectName,builds($locator(running:any,canceled:any,count:1),build(number,status,statusText)))" % variables['project']
         response = requests.get(request_url, headers={'Accept': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
                                 proxies=self.proxy, verify=False)
         response.raise_for_status()

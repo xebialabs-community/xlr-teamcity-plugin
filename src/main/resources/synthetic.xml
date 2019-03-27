@@ -82,7 +82,14 @@
         <property category="input" name="username" required="false" description="Overrides the username used to connect to the server."/>
         <property category="input" name="password" password="true" required="false" description="Overrides the password used to connect to the server."/>
         <property category="input" name="project" required="true" default="" description="Project id to fetch all the build configurations from."/>
-        
+        <property category="input" name="filter" required="true" kind="enum" description="Specify which statuses to see (Success|Failed|All).">
+            <enum-values>
+                <value>Failed</value>
+                <value>Success</value>
+                <value>All</value>
+            </enum-values>
+        </property>
+
     </type>
 
 </synthetic>
