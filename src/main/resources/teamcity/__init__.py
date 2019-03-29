@@ -93,11 +93,9 @@ class TeamCityClient(object):
 
     def teamcity_getpools(self, variables):
         request_url = self.host + "/app/rest/agentPools"
-        response = requests.get(request_url, headers={'Accept': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
-                                proxies=self.proxy, verify=False)
-        response.raise_for_status()
+        response = self._get_response(request_url)
         result = {}
-        for pool in response.json()['agentPool']:
+        for pool in response['agentPool']:
             result[pool['name']] = pool['id']
         variables['pools'] = result
 
@@ -127,13 +125,18 @@ class TeamCityClient(object):
 
     def teamcity_wait_for_build(self,variables):
         request_url = self.host + "/app/rest/buildQueue/taskId:" + str(variables['taskID'])
-        response = requests.get(request_url, headers={'Accept': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
-                                proxies=self.proxy, verify=False)
-        response.raise_for_status()
-        return response.json()
+        return self._get_response(request_url)
 
     def get_build_configuration_statuses(self, variables):
-        request_url = self.host + "/app/rest/buildTypes?locator=affectedProject:(id:%s)&fields=buildType(id,name,projectName,builds($locator(running:any,canceled:any,count:1),build(number,status,statusText)))" % variables['project']
+        request_url = self.host + "/app/rest/buildTypes?locator=affectedProject:(id:%s)&fields=buildType(id,name,projectName,builds($locator(running:any,canceled:any,count:1),build(id,number,status,statusText)))" % variables['project']
+        return self._get_response(request_url)
+
+    def get_build_problem_occurrences(self, build_id):
+        print("BUILD ID: %s" % build_id)
+        request_url = self.host + "/app/rest/problemOccurrences?locator=build:%s&fields=count,problemOccurrence(id,details)" % build_id
+        return self._get_response(request_url)
+
+    def _get_response(self, request_url):
         response = requests.get(request_url, headers={'Accept': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
                                 proxies=self.proxy, verify=False)
         response.raise_for_status()

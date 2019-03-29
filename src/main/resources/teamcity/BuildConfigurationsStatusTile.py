@@ -27,7 +27,9 @@ project_name = ""
 for build_configuration in response['buildType']:
     project_name = build_configuration["projectName"]
     if filter == "All" or (filter == "Success" and build_configuration['builds']['build'][0]['status'] == "SUCCESS") or (filter == "Failed" and build_configuration['builds']['build'][0]['status'] != "SUCCESS"):
-        statuses.append({"name": build_configuration['name'], "status": build_configuration['builds']['build'][0]['status'], "statusText": build_configuration['builds']['build'][0]['statusText'],
+        build_problem_occurrences = teamcity_client.get_build_problem_occurrences(build_configuration['builds']['build'][0]['id'])
+        statuses.append({"name": build_configuration['name'], "status": build_configuration['builds']['build'][0]['status'], 
+                         "statusText": build_configuration['builds']['build'][0]['statusText'], "problemOccurences": build_problem_occurrences,
                          "url": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id'])})
 projectStatus = {"name": project_name,
                  "url": "%s/app/rest/builds/aggregated/strob:(buildType:(project:(id:%s)))/statusIcon.svg" % (teamcityServer["url"], project)}
