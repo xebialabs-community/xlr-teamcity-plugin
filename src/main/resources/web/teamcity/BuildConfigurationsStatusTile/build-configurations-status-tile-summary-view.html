@@ -13,78 +13,80 @@
 <html>
 
 <head>
-    <style>
-        .collapsible {
-            background-color: #f0f0f0;
-            color: #333;
-            cursor: pointer;
-            padding: 5px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 16px;
-            border: 1px solid #d5d5d5;
+    <style type="text/css">
+        .left {
+            float: left;
+            width: 48%;
         }
 
-        .active,
-        .collapsible:hover {
-            background-color: #fff;
-        }
-
-        .content {
-            padding: 0 18px;
-            display: none;
-            overflow: hidden;
-            background-color: #fff;
+        .right {
+            float: right;
+            width: 48%;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 </head>
-<script>
-    window.addEventListener("xlrelease.load", function () {
-        window.xlrelease.queryTileData(function (response) {
-            var projectStatus = response.data.data.projectStatus
-            var statuses = response.data.data.statuses;
-            statuses.forEach(function (statusData) {
-                $("#statuses").append('<button class="collapsible"><table width="100%"><tr><td width="30%">' + statusData.name +
-                    '</td><td width="40%">' + statusData.statusText + '</td><td>' + statusData.problemOccurrences.count +
-                    ' <span style="color:red">⚠</span></td><td>' + statusData.testOccurrences.successCount +
-                    ' <span style="color:green">☑</span> - ' + statusData.testOccurrences.failureCount +
-                    ' <span style="color:red">☒</span></td><td align="right"><span class="status-message"><img src="' + statusData.url +
-                    '" alt="' + statusData.status + '"/></span></td></tr></table></button>' +
-                    '<div class="content"><p>Some more info</p></div>'
-                );
-            })
-            var projectId = window.xlrelease.tile.properties.project;
-            $("#title").append('Project: ' + projectStatus.name + ' <span class="status-message"><img src="' + projectStatus.url + '" alt="' + projectId + '"/></span>');
-            var coll = document.getElementsByClassName("collapsible");
-            var i;
+<div class="content">
 
-            for (i = 0; i < coll.length; i++) {
-                coll[i].addEventListener("click", function () {
-                    this.classList.toggle("active");
-                    var content = this.nextElementSibling;
-                    if (content.style.display === "block") {
-                        content.style.display = "none";
-                    } else {
-                        content.style.display = "block";
+    <script>
+        window.addEventListener("xlrelease.load", function () {
+            window.xlrelease.queryTileData(function (response) {
+                var projectStatus = response.data.data.projectStatus
+                var statuses = response.data.data.statuses;
+                statuses.forEach(function (statusData) {
+                    var problemDetails = ""
+                    var testFailureDetails = ""
+                    if (statusData.problemOccurrences.count > 0) {
+                        statusData.problemOccurrences.problemOccurrence.forEach(function (problemOccurrence) {
+                            problemDetails += "<li>" + problemOccurrence.details + "</li>"
+                        });
                     }
+                    if (statusData.testOccurrences.failureCount > 0) {
+                        statusData.testOccurrences.testOccurrence.forEach(function (testOccurrence) {
+                            if (testOccurrence.status == "FAILURE") {
+                                testFailureDetails += "<li>" + testOccurrence.details + "</li>"
+                            }
+                        });
+                    }
+                    $("#statuses").append('<h6><table width="95%"><tr><td width="30%">' + statusData.name +
+                        '</td><td width="40%">' + statusData.statusText + '</td><td width="10%">' + statusData.problemOccurrences.count +
+                        ' <span style="color:red" title="Problems">⚠</span></td><td width="10%">' + statusData.testOccurrences.successCount +
+                        ' <span style="color:green" title="Test Success">☑</span> - ' + statusData.testOccurrences.failureCount +
+                        ' <span style="color:red" title="Test Failure">☒</span></td><td align="right" width="10%"><span class="status-message"><img src="' + statusData.url +
+                        '" alt="' + statusData.status + '"/></span></td></tr></table></h6>' +
+                        '<div><div class="left"><div>Problems:</div><ul>' + problemDetails + '</ul></div>' +
+                        '<div class="right"><div>Test Failures:</div><ul>' + testFailureDetails + '</ul></div></div>'
+                    );
+                })
+                var projectId = window.xlrelease.tile.properties.project;
+                $("#project").append('Project: ' + projectStatus.name + ' <span class="status-message"><img src="' + projectStatus.url + '" alt="' + projectId + '"/></span>');
+                $(function () {
+                    $("#statuses").accordion({
+                        header: "h6",
+                        collapsible: true,
+                        active: false,
+                        icons: false
+                    });
                 });
-            }
-        });
+                $(function () {
+                    $(document).tooltip();
+                });
+            });
 
 
 
-    })
+        })
 
-</script>
+    </script>
 
-<body>
-    <div id="title"></div>
-    <div id="statuses"></div>
-    </div>
+    <body>
+        <div id="project"></div>
+        <div id="statuses"></div>
+</div>
 </body>
 
 </html>

@@ -136,7 +136,7 @@ class TeamCityClient(object):
         return self._get_response(request_url)
 
     def get_build_test_occurrences(self, build_id):
-        request_url = self.host + "/app/rest/testOccurrences?locator=build:%s" % build_id
+        request_url = self.host + "/app/rest/testOccurrences?locator=build:%s&fields=count,testOccurrence(id,status,details)" % build_id
         return self._get_response(request_url)
 
     def _get_response(self, request_url):
