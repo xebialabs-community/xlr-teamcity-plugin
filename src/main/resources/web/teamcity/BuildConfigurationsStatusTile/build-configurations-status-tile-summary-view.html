@@ -13,6 +13,32 @@
 <html>
 
 <head>
+    <style>
+        .collapsible {
+            background-color: #f0f0f0;
+            color: #333;
+            cursor: pointer;
+            padding: 5px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            border: 1px solid #d5d5d5;
+        }
+
+        .active,
+        .collapsible:hover {
+            background-color: #fff;
+        }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #fff;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 </head>
@@ -22,25 +48,42 @@
             var projectStatus = response.data.data.projectStatus
             var statuses = response.data.data.statuses;
             statuses.forEach(function (statusData) {
-                $("#statuses").append('<tr><td width="30%">' + statusData.name +
-                    '</td><td width="40%">' + statusData.statusText + '</td><td>' + statusData.problemOccurences.count + 
-                    ' ⚠</td><td align="right"><span class="status-message"><img src="' + statusData.url + '" alt="' + statusData.status + '"/></span></td></tr>'
+                $("#statuses").append('<button class="collapsible"><table width="100%"><tr><td width="30%">' + statusData.name +
+                    '</td><td width="40%">' + statusData.statusText + '</td><td>' + statusData.problemOccurrences.count +
+                    ' <span style="color:red">⚠</span></td><td>' + statusData.testOccurrences.successCount +
+                    ' <span style="color:green">☑</span> - ' + statusData.testOccurrences.failureCount +
+                    ' <span style="color:red">☒</span></td><td align="right"><span class="status-message"><img src="' + statusData.url +
+                    '" alt="' + statusData.status + '"/></span></td></tr></table></button>' +
+                    '<div class="content"><p>Some more info</p></div>'
                 );
             })
             var projectId = window.xlrelease.tile.properties.project;
             $("#title").append('Project: ' + projectStatus.name + ' <span class="status-message"><img src="' + projectStatus.url + '" alt="' + projectId + '"/></span>');
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.display === "block") {
+                        content.style.display = "none";
+                    } else {
+                        content.style.display = "block";
+                    }
+                });
+            }
         });
 
 
 
     })
+
 </script>
 
 <body>
     <div id="title"></div>
-    <div class="build-configurations-status-tile-summary">
-        <table id="statuses" width="100%">
-        </table>
+    <div id="statuses"></div>
     </div>
 </body>
 
