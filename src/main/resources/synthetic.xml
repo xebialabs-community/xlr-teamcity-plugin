@@ -67,6 +67,17 @@
         <property name="checkConfigurationPath" hidden="true" default="/app/rest/projects"/>
     </type>
 
+    <type type="teamcity.BuildConfigurationTrigger" extends="xlrelease.ReleaseTrigger">
+        <property name="scriptLocation" default="teamcity/BuildConfigurationTrigger.py" hidden="true"/>
+        
+        <property name="teamcityServer" category="Repository" referenced-type="teamcity.Server" kind="ci" required="true" />
+        <property name="username" category="Repository" description="Overrides the username used to connect to the server." label="Username" required="false"/>
+        <property name="password" category="Repository" description="Overrides the password used to connect to the server." password="true" label="Password" required="false"/>
+        <property name="buildConfigurationId" category="Repository" description="Build Configuration ID to monitor" required="true"/>
+
+        <property name="buildNumber" category="variables" required="false" description="Received build number"/>
+    </type>
+
     <type type="teamcity.BuildConfigurationsStatusTile" label="TeamCity Build Configurations Status" extends="xlrelease.Tile" description="Display the status for all build configurations in a project.">
 
         <!-- Path to the HTML template of the dashboard view of the tile -->

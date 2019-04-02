@@ -139,6 +139,11 @@ class TeamCityClient(object):
         request_url = self.host + "/app/rest/testOccurrences?locator=build:%s&fields=count,testOccurrence(id,status,details)" % build_id
         return self._get_response(request_url)
 
+    def get_latest_successful_build(self, build_configuration_id):
+        request_url = self.host + "/app/rest/builds/?locator=buildType:(id:%s),status:SUCCESS,count:1&fields=build(number,status)" % build_configuration_id
+        return self._get_response(request_url)
+
+
     def _get_response(self, request_url):
         response = requests.get(request_url, headers={'Accept': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
                                 proxies=self.proxy, verify=False)
