@@ -10,7 +10,6 @@
 
 import logging
 
-import teamcity
 from teamcity import TeamCityClient
 
 logger = logging.getLogger("TeamCity")
