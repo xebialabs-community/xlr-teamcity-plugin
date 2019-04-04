@@ -56,7 +56,7 @@
                         '</td><td width="40%">' + statusData.statusText + '</td><td width="10%">' + (statusData.problemOccurrences.count > 0 ? statusData.problemOccurrences.count : '0') +
                         ' <span style="color:red" title="Problems">⚠</span></td><td width="10%">' + (statusData.testOccurrences.successCount > 0 ? statusData.testOccurrences.successCount : '0') +
                         ' <span style="color:green" title="Test Success">☑</span> - ' + (statusData.testOccurrences.failureCount > 0 ? statusData.testOccurrences.failureCount : '0') +
-                        ' <span style="color:red" title="Test Failure">☒</span></td><td align="right" width="10%"><span class="status-message"><img src="' + statusData.statusUrl +
+                        ' <span style="color:red" title="Test Failure">☒</span></td><td align="right" width="10%"><span class="status-message" title="' + statusData.finishDate + '"><img src="' + statusData.statusUrl +
                         '" alt="' + statusData.status + '"/></span></td><td align="right" width="5%"><a onclick="event.stopPropagation()" href="' + statusData.buildLogUrl + '">⭳</a></td></tr></table></h6>' +
                         '<div><div class="left"><div>Problems:</div><ul>' + problemDetails + '</ul></div>' +
                         '<div class="right"><div>Test Failures:</div><ul>' + testFailureDetails + '</ul></div></div>'
