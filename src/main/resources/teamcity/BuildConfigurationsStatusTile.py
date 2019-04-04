@@ -47,7 +47,8 @@ if teamcityServer:
                 build_test_occurrences["successCount"] = successCount
                 build_test_occurrences["failureCount"] = failureCount
                 statuses.append({"name": build_configuration['name'], "status": build_configuration['builds']['build'][0]['status'],
-                                 "statusText": build_configuration['builds']['build'][0]['statusText'], "finishDate": time.strftime("%a, %d %b %Y %H:%M:%S",time.strptime(build_configuration['builds']['build'][0]['finishDate'],"%Y%m%dT%H%M%S+0000")), 
+                                 "statusText": build_configuration['builds']['build'][0]['statusText'],
+                                 "finishDate": time.strftime("%a, %d %b %Y %H:%M:%S", time.strptime(build_configuration['builds']['build'][0]['finishDate'], "%Y%m%dT%H%M%S+0000")),
                                  "problemOccurrences": build_problem_occurrences, "testOccurrences": build_test_occurrences,
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id']),
                                  "buildLogUrl": "%s/downloadBuildLog.html?buildId=%s" % (teamcityServer["url"], build_configuration['builds']['build'][0]['id'])})
