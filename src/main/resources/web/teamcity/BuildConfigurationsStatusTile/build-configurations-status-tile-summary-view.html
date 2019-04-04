@@ -52,18 +52,18 @@
                             }
                         });
                     }
-                    $("#statuses").append('<h6><table width="95%"><tr><td width="30%">' + statusData.name +
+                    $("#statuses").append('<h6><table width="95%"><tr><td width="25%">' + statusData.name +
                         '</td><td width="40%">' + statusData.statusText + '</td><td width="10%">' + (statusData.problemOccurrences.count > 0 ? statusData.problemOccurrences.count : '0') +
                         ' <span style="color:red" title="Problems">⚠</span></td><td width="10%">' + (statusData.testOccurrences.successCount > 0 ? statusData.testOccurrences.successCount : '0') +
                         ' <span style="color:green" title="Test Success">☑</span> - ' + (statusData.testOccurrences.failureCount > 0 ? statusData.testOccurrences.failureCount : '0') +
-                        ' <span style="color:red" title="Test Failure">☒</span></td><td align="right" width="10%"><span class="status-message"><img src="' + statusData.url +
-                        '" alt="' + statusData.status + '"/></span></td></tr></table></h6>' +
+                        ' <span style="color:red" title="Test Failure">☒</span></td><td align="right" width="10%"><span class="status-message"><img src="' + statusData.statusUrl +
+                        '" alt="' + statusData.status + '"/></span></td><td align="right" width="5%"><a onclick="event.stopPropagation()" href="' + statusData.buildLogUrl + '">⭳</a></td></tr></table></h6>' +
                         '<div><div class="left"><div>Problems:</div><ul>' + problemDetails + '</ul></div>' +
                         '<div class="right"><div>Test Failures:</div><ul>' + testFailureDetails + '</ul></div></div>'
                     );
                 })
                 var projectId = window.xlrelease.tile.properties.project;
-                $("#project").append('Project: ' + projectStatus.name + ' <span class="status-message"><img src="' + projectStatus.url + '" alt="' + projectId + '"/></span>');
+                $("#project").append('Project: ' + projectStatus.name + ' <span class="status-message"><img src="' + projectStatus.statusUrl + '" alt="' + projectId + '"/></span>');
                 $(function () {
                     $("#statuses").accordion({
                         header: "h6",

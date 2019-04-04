@@ -49,7 +49,8 @@ if teamcityServer:
                 statuses.append({"name": build_configuration['name'], "status": build_configuration['builds']['build'][0]['status'],
                                 "statusText": build_configuration['builds']['build'][0]['statusText'], "problemOccurrences": build_problem_occurrences,
                                 "testOccurrences": build_test_occurrences,
-                                "url": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id'])})
+                                "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id']),
+                                "buildLogUrl": "%s/downloadBuildLog.html?buildId=%s" % (teamcityServer["url"], build_configuration['builds']['build'][0]['id'])})
     projectStatus = {"name": project_name,
-                     "url": "%s/app/rest/builds/aggregated/strob:(buildType:(project:(id:%s)))/statusIcon.svg" % (teamcityServer["url"], project)}
+                     "statusUrl": "%s/app/rest/builds/aggregated/strob:(buildType:(project:(id:%s)))/statusIcon.svg" % (teamcityServer["url"], project)}
     data = {"statuses": statuses, "projectStatus": projectStatus}
