@@ -14,14 +14,28 @@
 
 <head>
     <style type="text/css">
+        .container {
+            display: grid;
+        }
+
         .left {
-            float: left;
-            width: 48%;
+            grid-column: 1;
         }
 
         .right {
-            float: right;
-            width: 48%;
+            grid-column: 2;
+        }
+
+        #statuses .ui-accordion-header {
+            line-height: 20px;
+            font-size: 10pt;
+            text-indent: 10px;
+        }
+
+        #statuses .ui-helper-reset {
+            line-height: 20px;
+            font-size: 10pt;
+            text-indent: 10px;
         }
     </style>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -60,7 +74,7 @@
                             ' <span style="color:green" title="Test Success">☑</span> - ' + (statusData.testOccurrences.failureCount > 0 ? statusData.testOccurrences.failureCount : '0') +
                             ' <span style="color:red" title="Test Failure">☒</span></td><td align="right" width="10%"><span class="status-message" title="' + statusData.finishDate + '"><img src="' + statusData.statusUrl +
                             '" alt="' + statusData.status + '"/></span></td><td align="right" width="5%"><a onclick="event.stopPropagation()" href="' + statusData.buildLogUrl + '">⭳</a></td></tr></table></h6>' +
-                            '<div><div class="left"><div>Problems:</div><ul>' + problemDetails + '</ul></div>' +
+                            '<div class="container"><div class="left"><div>Problems:</div><ul>' + problemDetails + '</ul><pre>' + statusData.buildLog + '</pre></div>' +
                             '<div class="right"><div>Test Failures:</div><ul>' + testFailureDetails + '</ul></div></div>'
                         );
                     });
