@@ -52,7 +52,7 @@
                 var projectStatuses = response.data.data.projectStatuses;
                 projectStatuses.forEach(function (projectStatus) {
                     $("#statuses").append('<h6><table width="95%"><tr><td width="75%">' + projectStatus.name + '</td><td align="right" width="25%"><img src="' + projectStatus.statusUrl +
-                        '"/></td></tr></table></h6><div><div class="accordion" id="' + projectStatus.name.replace(/ /g, "_").replace(/\//g, "-") + '">');
+                        '"/></td></tr></table></h6><div><div class="accordion" id="' + projectStatus.name.replace(/ |\(|\)|\./g, "_").replace(/\//g, "-") + '">');
                     projectStatus.statuses.forEach(function (statusData) {
                         var problemDetails = "";
                         var testFailureDetails = "";
@@ -68,7 +68,7 @@
                                 }
                             });
                         }
-                        $("#" + projectStatus.name.replace(/ /g, "_").replace(/\//g, "-")).append('<h6><table width="95%"><tr><td width="25%">' + statusData.name +
+                        $("#" + projectStatus.name.replace(/ |\(|\)|\./g, "_").replace(/\//g, "-")).append('<h6><table width="95%"><tr><td width="25%">' + statusData.name +
                             '</td><td width="40%">' + statusData.statusText + '</td><td width="10%">' + (statusData.problemOccurrences.count > 0 ? statusData.problemOccurrences.count : '0') +
                             ' <span style="color:red" title="Problems">⚠</span></td><td width="10%">' + (statusData.testOccurrences.successCount > 0 ? statusData.testOccurrences.successCount : '0') +
                             ' <span style="color:green" title="Test Success">☑</span> - ' + (statusData.testOccurrences.failureCount > 0 ? statusData.testOccurrences.failureCount : '0') +
