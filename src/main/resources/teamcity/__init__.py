@@ -88,7 +88,7 @@ class TeamCityClient(object):
     def teamcity_deleteagent(self, variables):
         request_url = self.host + "/app/rest/agents/id:" + variables['agentId']
         response = requests.delete(request_url,  headers={'Accept': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
-                                proxies=self.proxy, verify=False)
+                                   proxies=self.proxy, verify=False)
         response.raise_for_status()
 
     def teamcity_getpools(self, variables):
@@ -99,46 +99,52 @@ class TeamCityClient(object):
             result[pool['name']] = pool['id']
         variables['pools'] = result
 
-    def teamcity_assigntopool(self,variables):
-        request_url = self.host + "/app/rest/agentPools/id:" + variables["poolId"] + "/agents"
-        content = {"id":"%s" % variables["agentId"]}
+    def teamcity_assigntopool(self, variables):
+        request_url = self.host + "/app/rest/agentPools/id:" + \
+            variables["poolId"] + "/agents"
+        content = {"id": "%s" % variables["agentId"]}
         response = requests.post(request_url, json=content, headers={'Content-Type': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
-                                proxies=self.proxy, verify=False)
+                                 proxies=self.proxy, verify=False)
         response.raise_for_status()
 
-    def teamcity_build(self,variables):
+    def teamcity_build(self, variables):
         request_url = self.host + "/app/rest/buildQueue"
-        content = {'buildType': { 'id': variables['buildID'] }}
+        content = {'buildType': {'id': variables['buildID']}}
         if len(variables['buildProperties']) > 0:
             content['properties'] = {"property": []}
             for prop in variables['buildProperties'].keys():
                 content["properties"]["property"].append(
-                {
-                    "name": prop,
-                    "value": variables['buildProperties'][prop]
-                }
+                    {
+                        "name": prop,
+                        "value": variables['buildProperties'][prop]
+                    }
                 )
-        response = requests.post(request_url, json=content, headers={'Accept':'application/json','Content-Type': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
-                                proxies=self.proxy, verify=False)
+        response = requests.post(request_url, json=content, headers={'Accept': 'application/json', 'Content-Type': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
+                                 proxies=self.proxy, verify=False)
         response.raise_for_status()
         return response.json()
 
-    def teamcity_wait_for_build(self,variables):
-        request_url = self.host + "/app/rest/buildQueue/taskId:" + str(variables['taskID'])
+    def teamcity_wait_for_build(self, variables):
+        request_url = self.host + "/app/rest/buildQueue/taskId:" + \
+            str(variables['taskID'])
         return self._get_response(request_url)
 
     def get_build_configuration_statuses(self, variables):
-        request_url = self.host + "/app/rest/buildTypes?locator=affectedProject:(id:%s)&fields=buildType(id,name,projectName,projectId,builds($locator(running:any,canceled:any,count:1),build(id,number,status,statusText,finishDate)))" % variables['project']
+        request_url = self.host + \
+            "/app/rest/buildTypes?locator=affectedProject:(id:%s)&fields=buildType(id,name,projectName,projectId,builds($locator(running:any,canceled:any,count:1),build(id,number,status,statusText,finishDate)))" % variables[
+                'project']
         return self._get_response(request_url)
 
     def get_build_problem_occurrences(self, build_id):
-        request_url = self.host + "/app/rest/problemOccurrences?locator=build:%s&fields=count,problemOccurrence(id,details)" % build_id
+        request_url = self.host + \
+            "/app/rest/problemOccurrences?locator=build:%s&fields=count,problemOccurrence(id,details)" % build_id
         return self._get_response(request_url)
 
     def get_build_test_occurrences(self, build_id):
-        request_url = self.host + "/app/rest/testOccurrences?locator=build:%s&fields=count,testOccurrence(id,status,details)" % build_id
+        request_url = self.host + \
+            "/app/rest/testOccurrences?locator=build:%s&fields=count,testOccurrence(id,status,details)" % build_id
         return self._get_response(request_url)
-    
+
     def get_build_log(self, build_id):
         request_url = self.host + "/downloadBuildLog.html?buildId=%s" % build_id
         response = requests.get(request_url, auth=HTTPBasicAuth(self.username, self.password),
@@ -146,16 +152,13 @@ class TeamCityClient(object):
         response.raise_for_status()
         return response.text
 
-
     def get_latest_successful_build(self, build_configuration_id):
-        request_url = self.host + "/app/rest/builds/?locator=buildType:(id:%s),status:SUCCESS,count:1&fields=build(number,status)" % build_configuration_id
+        request_url = self.host + \
+            "/app/rest/builds/?locator=buildType:(id:%s),status:SUCCESS,count:1&fields=build(number,status)" % build_configuration_id
         return self._get_response(request_url)
-
 
     def _get_response(self, request_url):
         response = requests.get(request_url, headers={'Accept': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
                                 proxies=self.proxy, verify=False)
         response.raise_for_status()
         return response.json()
-
-
