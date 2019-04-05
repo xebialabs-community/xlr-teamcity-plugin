@@ -48,6 +48,8 @@ if teamcityServer:
                     build_configuration['builds']['build'][0]['id'])
                 build_test_occurrences = teamcity_client.get_build_test_occurrences(
                     build_configuration['builds']['build'][0]['id'])
+                build_log = teamcity_client.get_build_log(build_configuration['builds']['build'][0]['id'])
+                processed_build_log = ''.join([line for line in build_log.split('\n') if "]W:" in line or "]E:" in line])
                 successCount = 0
                 failureCount = 0
                 if build_test_occurrences["count"] > 0:
@@ -62,6 +64,7 @@ if teamcityServer:
                                  "statusText": build_configuration['builds']['build'][0]['statusText'],
                                  "finishDate": time.strftime("%a, %d %b %Y %H:%M:%S", time.strptime(build_configuration['builds']['build'][0]['finishDate'], "%Y%m%dT%H%M%S+0000")),
                                  "problemOccurrences": build_problem_occurrences, "testOccurrences": build_test_occurrences,
+                                 "buildLog": processed_build_log,
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id']),
                                  "buildLogUrl": "%s/downloadBuildLog.html?buildId=%s" % (teamcityServer["url"], build_configuration['builds']['build'][0]['id'])})
     data = {"projectStatuses": project_statuses}
