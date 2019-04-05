@@ -18,12 +18,16 @@
             display: grid;
         }
 
-        .left {
-            grid-column: 1;
+        .problems {
+            grid-row: 1;
         }
 
-        .right {
-            grid-column: 2;
+        .warnings {
+            grid-row: 2;
+        }
+
+        .failures {
+            grid-row: 3;
         }
 
         #statuses .ui-accordion-header {
@@ -54,19 +58,27 @@
                     $("#statuses").append('<h6><table width="95%"><tr><td width="75%">' + projectStatus.name + '</td><td align="right" width="25%"><img src="' + projectStatus.statusUrl +
                         '"/></td></tr></table></h6><div><div class="accordion" id="' + projectStatus.name.replace(/ |\(|\)|\./g, "_").replace(/\//g, "-") + '">');
                     projectStatus.statuses.forEach(function (statusData) {
-                        var problemDetails = "";
-                        var testFailureDetails = "";
+                        var problemDetails = "N/A";
+                        var testFailureDetails = "N/A";
+                        var buildLogDetails = "N/A";
                         if (statusData.problemOccurrences.count > 0) {
+                            problemDetails = "<ul>"
                             statusData.problemOccurrences.problemOccurrence.forEach(function (problemOccurrence) {
                                 problemDetails += "<li>" + problemOccurrence.details + "</li>";
                             });
+                            problemDetails += "</ul>"
                         }
                         if (statusData.testOccurrences.failureCount > 0) {
+                            testFailureDetails = "<ul>"
                             statusData.testOccurrences.testOccurrence.forEach(function (testOccurrence) {
                                 if (testOccurrence.status == "FAILURE") {
                                     testFailureDetails += "<li>" + testOccurrence.details + "</li>";
                                 }
                             });
+                            testFailureDetails += "</ul>"
+                        }
+                        if (statusData.buildLog) {
+                            buildLogDetails = "<pre>" + statusData.buildLog + "</pre>";
                         }
                         $("#" + projectStatus.name.replace(/ |\(|\)|\./g, "_").replace(/\//g, "-")).append('<h6><table width="95%"><tr><td width="25%">' + statusData.name +
                             '</td><td width="40%">' + statusData.statusText + '</td><td width="10%">' + (statusData.problemOccurrences.count > 0 ? statusData.problemOccurrences.count : '0') +
@@ -74,8 +86,8 @@
                             ' <span style="color:green" title="Test Success">☑</span> - ' + (statusData.testOccurrences.failureCount > 0 ? statusData.testOccurrences.failureCount : '0') +
                             ' <span style="color:red" title="Test Failure">☒</span></td><td align="right" width="10%"><span class="status-message" title="' + statusData.finishDate + '"><img src="' + statusData.statusUrl +
                             '" alt="' + statusData.status + '"/></span></td><td align="right" width="5%"><a onclick="event.stopPropagation()" href="' + statusData.buildLogUrl + '">⭳</a></td></tr></table></h6>' +
-                            '<div class="container"><div class="left"><div>Problems:</div><ul>' + problemDetails + '</ul><pre>' + statusData.buildLog + '</pre></div>' +
-                            '<div class="right"><div>Test Failures:</div><ul>' + testFailureDetails + '</ul></div></div>'
+                            '<div class="container"><div class="problems">Problems:' + problemDetails + '</div><div class="warnings">Warnings and Errors:' + buildLogDetails + '</div>' +
+                            '<div class="failures">Test Failures:' + testFailureDetails + '</div></div>'
                         );
                     });
                     $("#statuses").append('</div></div>')
