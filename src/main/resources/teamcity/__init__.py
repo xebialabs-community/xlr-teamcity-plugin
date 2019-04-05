@@ -128,7 +128,7 @@ class TeamCityClient(object):
         return self._get_response(request_url)
 
     def get_build_configuration_statuses(self, variables):
-        request_url = self.host + "/app/rest/buildTypes?locator=affectedProject:(id:%s)&fields=buildType(id,name,projectName,builds($locator(running:any,canceled:any,count:1),build(id,number,status,statusText,finishDate)))" % variables['project']
+        request_url = self.host + "/app/rest/buildTypes?locator=affectedProject:(id:%s)&fields=buildType(id,name,projectName,projectId,builds($locator(running:any,canceled:any,count:1),build(id,number,status,statusText,finishDate)))" % variables['project']
         return self._get_response(request_url)
 
     def get_build_problem_occurrences(self, build_id):
