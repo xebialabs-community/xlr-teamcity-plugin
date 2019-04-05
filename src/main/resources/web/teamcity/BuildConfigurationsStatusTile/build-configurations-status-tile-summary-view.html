@@ -35,41 +35,44 @@
     <script>
         window.addEventListener("xlrelease.load", function () {
             window.xlrelease.queryTileData(function (response) {
-                var projectStatus = response.data.data.projectStatus
-                var statuses = response.data.data.statuses;
-                statuses.forEach(function (statusData) {
-                    var problemDetails = ""
-                    var testFailureDetails = ""
-                    if (statusData.problemOccurrences.count > 0) {
-                        statusData.problemOccurrences.problemOccurrence.forEach(function (problemOccurrence) {
-                            problemDetails += "<li>" + problemOccurrence.details + "</li>"
-                        });
-                    }
-                    if (statusData.testOccurrences.failureCount > 0) {
-                        statusData.testOccurrences.testOccurrence.forEach(function (testOccurrence) {
-                            if (testOccurrence.status == "FAILURE") {
-                                testFailureDetails += "<li>" + testOccurrence.details + "</li>"
-                            }
-                        });
-                    }
-                    $("#statuses").append('<h6><table width="95%"><tr><td width="25%">' + statusData.name +
-                        '</td><td width="40%">' + statusData.statusText + '</td><td width="10%">' + (statusData.problemOccurrences.count > 0 ? statusData.problemOccurrences.count : '0') +
-                        ' <span style="color:red" title="Problems">⚠</span></td><td width="10%">' + (statusData.testOccurrences.successCount > 0 ? statusData.testOccurrences.successCount : '0') +
-                        ' <span style="color:green" title="Test Success">☑</span> - ' + (statusData.testOccurrences.failureCount > 0 ? statusData.testOccurrences.failureCount : '0') +
-                        ' <span style="color:red" title="Test Failure">☒</span></td><td align="right" width="10%"><span class="status-message" title="' + statusData.finishDate + '"><img src="' + statusData.statusUrl +
-                        '" alt="' + statusData.status + '"/></span></td><td align="right" width="5%"><a onclick="event.stopPropagation()" href="' + statusData.buildLogUrl + '">⭳</a></td></tr></table></h6>' +
-                        '<div><div class="left"><div>Problems:</div><ul>' + problemDetails + '</ul></div>' +
-                        '<div class="right"><div>Test Failures:</div><ul>' + testFailureDetails + '</ul></div></div>'
-                    );
-                })
-                var projectId = window.xlrelease.tile.properties.project;
-                $("#project").append('Project: ' + projectStatus.name + ' <span class="status-message"><img src="' + projectStatus.statusUrl + '" alt="' + projectId + '"/></span>');
+                var projectStatuses = response.data.data.projectStatuses;
+                projectStatuses.forEach(function (projectStatus) {
+                    $("#statuses").append('<h6><table width="95%"><tr><td width="75%">' + projectStatus.name + '</td><td align="right" width="25%"><img src="' + projectStatus.statusUrl +
+                        '"/></td></tr></table></h6><div><div class="accordion" id="' + projectStatus.name.replace(/ /g, "_").replace(/\//g, "-") + '">');
+                    projectStatus.statuses.forEach(function (statusData) {
+                        var problemDetails = "";
+                        var testFailureDetails = "";
+                        if (statusData.problemOccurrences.count > 0) {
+                            statusData.problemOccurrences.problemOccurrence.forEach(function (problemOccurrence) {
+                                problemDetails += "<li>" + problemOccurrence.details + "</li>";
+                            });
+                        }
+                        if (statusData.testOccurrences.failureCount > 0) {
+                            statusData.testOccurrences.testOccurrence.forEach(function (testOccurrence) {
+                                if (testOccurrence.status == "FAILURE") {
+                                    testFailureDetails += "<li>" + testOccurrence.details + "</li>";
+                                }
+                            });
+                        }
+                        $("#" + projectStatus.name.replace(/ /g, "_").replace(/\//g, "-")).append('<h6><table width="95%"><tr><td width="25%">' + statusData.name +
+                            '</td><td width="40%">' + statusData.statusText + '</td><td width="10%">' + (statusData.problemOccurrences.count > 0 ? statusData.problemOccurrences.count : '0') +
+                            ' <span style="color:red" title="Problems">⚠</span></td><td width="10%">' + (statusData.testOccurrences.successCount > 0 ? statusData.testOccurrences.successCount : '0') +
+                            ' <span style="color:green" title="Test Success">☑</span> - ' + (statusData.testOccurrences.failureCount > 0 ? statusData.testOccurrences.failureCount : '0') +
+                            ' <span style="color:red" title="Test Failure">☒</span></td><td align="right" width="10%"><span class="status-message" title="' + statusData.finishDate + '"><img src="' + statusData.statusUrl +
+                            '" alt="' + statusData.status + '"/></span></td><td align="right" width="5%"><a onclick="event.stopPropagation()" href="' + statusData.buildLogUrl + '">⭳</a></td></tr></table></h6>' +
+                            '<div><div class="left"><div>Problems:</div><ul>' + problemDetails + '</ul></div>' +
+                            '<div class="right"><div>Test Failures:</div><ul>' + testFailureDetails + '</ul></div></div>'
+                        );
+                    });
+                    $("#statuses").append('</div></div>')
+
+                });
                 $(function () {
-                    $("#statuses").accordion({
-                        header: "h6",
+                    $(".accordion").accordion({
                         collapsible: true,
                         active: false,
-                        icons: false
+                        icons: false,
+                        heightStyle: "content"
                     });
                 });
                 $(function () {
@@ -84,9 +87,8 @@
     </script>
 
     <body>
-        <div id="project"></div>
-        <div id="statuses"></div>
+        <div class="accordion" id="statuses"></div>
+    </body>
 </div>
-</body>
 
 </html>

@@ -21,13 +21,25 @@ if teamcityServer:
         teamcityServer, username=None, password=None, logger=logger)
     response = teamcity_client.get_build_configuration_statuses(locals())
 
-    statuses = []
-    project_name = ""
+    project_statuses = []
+    project_names = []
     for build_configuration in response['buildType']:
         project_name = build_configuration["projectName"]
+        project_id = build_configuration["projectId"]
+        if project_name not in project_names:
+            project_names.append(project_name)
+            project_statuses.append({"name": project_name, "statusUrl": "%s/app/rest/builds/aggregated/strob:(buildType:(project:(id:%s)))/statusIcon.svg" %
+                                     (teamcityServer["url"], project_id), "statuses": []})
+
+        project_status = None
+        for pstatus in project_statuses:
+            if pstatus["name"] == project_name:
+                project_status = pstatus
+                break
+
         if filter == "All" or (filter == "Success" and len(build_configuration["builds"]["build"]) > 0 and build_configuration['builds']['build'][0]['status'] == "SUCCESS") or (filter == "Failed" and len(build_configuration["builds"]["build"]) > 0 and build_configuration['builds']['build'][0]['status'] != "SUCCESS"):
             if len(build_configuration["builds"]["build"]) == 0:
-                statuses.append({"name": build_configuration['name'], "status": "No Info",
+                project_status["statuses"].append({"name": build_configuration['name'], "status": "No Info",
                                  "statusText": "No builds to display", "problemOccurrences": {},
                                  "testOccurrences": {}, "finishDate": "N/A",
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id'])})
@@ -46,12 +58,10 @@ if teamcityServer:
                             failureCount += 1
                 build_test_occurrences["successCount"] = successCount
                 build_test_occurrences["failureCount"] = failureCount
-                statuses.append({"name": build_configuration['name'], "status": build_configuration['builds']['build'][0]['status'],
+                project_status["statuses"].append({"name": build_configuration['name'], "status": build_configuration['builds']['build'][0]['status'],
                                  "statusText": build_configuration['builds']['build'][0]['statusText'],
                                  "finishDate": time.strftime("%a, %d %b %Y %H:%M:%S", time.strptime(build_configuration['builds']['build'][0]['finishDate'], "%Y%m%dT%H%M%S+0000")),
                                  "problemOccurrences": build_problem_occurrences, "testOccurrences": build_test_occurrences,
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id']),
                                  "buildLogUrl": "%s/downloadBuildLog.html?buildId=%s" % (teamcityServer["url"], build_configuration['builds']['build'][0]['id'])})
-    projectStatus = {"name": project_name,
-                     "statusUrl": "%s/app/rest/builds/aggregated/strob:(buildType:(project:(id:%s)))/statusIcon.svg" % (teamcityServer["url"], project)}
-    data = {"statuses": statuses, "projectStatus": projectStatus}
+    data = {"projectStatuses": project_statuses}
