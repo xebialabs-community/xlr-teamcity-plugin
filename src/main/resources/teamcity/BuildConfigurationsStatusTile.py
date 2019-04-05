@@ -9,8 +9,8 @@
 #
 
 import logging
-import time
 
+from dateutil.parser import parse
 from teamcity import TeamCityClient
 
 logger = logging.getLogger("TeamCity")
@@ -62,7 +62,7 @@ if teamcityServer:
                 build_test_occurrences["failureCount"] = failureCount
                 project_status["statuses"].append({"name": build_configuration['name'], "status": build_configuration['builds']['build'][0]['status'],
                                  "statusText": build_configuration['builds']['build'][0]['statusText'],
-                                 "finishDate": time.strftime("%a, %d %b %Y %H:%M:%S", time.strptime(build_configuration['builds']['build'][0]['finishDate'], "%Y%m%dT%H%M%S+0000")),
+                                 "finishDate": parse(build_configuration['builds']['build'][0]['finishDate']).strftime("%a, %d %b %Y %H:%M:%S"),
                                  "problemOccurrences": build_problem_occurrences, "testOccurrences": build_test_occurrences,
                                  "buildLog": processed_build_log,
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id']),
