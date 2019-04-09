@@ -103,4 +103,31 @@
 
     </type>
 
+    <type type="teamcity.ProjectStatusTile" label="TeamCity Project Status" extends="xlrelease.Tile" description="Display the status for a project.">
+        <property name="scriptLocation" default="teamcity/BuildConfigurationsStatusTile.py" hidden="true" />
+        
+        <!-- Path to the HTML template of the dashboard view of the tile -->
+        <property name="uri" hidden="true" default="teamcity/ProjectStatusTile/project-status-tile-summary-view.html" />
+        <property name="detailsUri" hidden="true" default="teamcity/BuildConfigurationsStatusTile/build-configurations-status-tile-summary-view.html" />
+        <!-- Title of the tile, this property is predefined in the parent type, but here you override its default value -->
+        <property name="title" description="Display name of the tile" default="Project Status"/>
+
+        <property name="supportedScopes" kind="list_of_string" default="global,folder,release" hidden="true"/>
+        <property name="expirationTime" kind="integer" hidden="true" default="10" description="Expiration time for a tile cache (in seconds)."/>
+
+        <!-- Tile configuration properties -->
+        <property category="input" name="teamcityServer" referenced-type="teamcity.Server" kind="ci" label="Server" description="TeamCity server id to connect to."/>
+        <property category="input" name="username" required="false" description="Overrides the username used to connect to the server."/>
+        <property category="input" name="password" password="true" required="false" description="Overrides the password used to connect to the server."/>
+        <property category="input" name="project" required="true" default="" description="Project id to fetch all the build configurations from."/>
+        <property category="input" name="filter" required="true" kind="enum" description="Specify which statuses to see in details (Success|Failed|All).">
+            <enum-values>
+                <value>Failed</value>
+                <value>Success</value>
+                <value>All</value>
+            </enum-values>
+        </property>
+
+    </type>
+
 </synthetic>
