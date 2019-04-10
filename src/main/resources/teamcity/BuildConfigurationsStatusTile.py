@@ -17,12 +17,13 @@ logger.info("Executing BuildConfigurationsStatusTile")
 data = {}
 status_count = []
 status_options = []
+status_colors = {'SUCCESS':'green','UNKNOWN':'orange','FAILURE':'red','No Info':'gray'}
 
 def increment_status_count(status):
     if status not in status_options:
         status_options.append(status)
     if not any(d['name'] == status for d in status_count):
-        status_count.append({'name':status,'value':0})
+        status_count.append({'name':status,'value':0, 'itemStyle':{'color':status_colors[status]}})
     d = next(d for i,d in enumerate(status_count) if d['name'] == status)
     d['value'] += 1
     logger.info("status_count [%s]" % status_count)
