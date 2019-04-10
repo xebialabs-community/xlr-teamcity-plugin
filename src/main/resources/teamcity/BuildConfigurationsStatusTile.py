@@ -8,14 +8,26 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-import logging
-
 from dateutil.parser import parse
+from org.slf4j import LoggerFactory
 from teamcity import TeamCityClient
 
-logger = logging.getLogger("TeamCity")
+logger = LoggerFactory.getLogger("com.xebialabs")
 logger.info("Executing BuildConfigurationsStatusTile")
 data = {}
+status_count = []
+status_options = []
+status_colors = {'SUCCESS':'green','UNKNOWN':'orange','FAILURE':'red','No Info':'gray'}
+
+def increment_status_count(status):
+    if status not in status_options:
+        status_options.append(status)
+    if not any(d['name'] == status for d in status_count):
+        status_count.append({'name':status,'value':0, 'itemStyle':{'color':status_colors[status] if status in status_colors else 'red'}})
+    d = next(d for i,d in enumerate(status_count) if d['name'] == status)
+    d['value'] += 1
+    logger.info("status_count [%s]" % status_count)
+
 if teamcityServer:
     teamcity_client = TeamCityClient(
         teamcityServer, username=None, password=None, logger=logger)
@@ -43,6 +55,7 @@ if teamcityServer:
                                  "statusText": "No builds to display", "problemOccurrences": {},
                                  "testOccurrences": {}, "finishDate": "N/A",
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id'])})
+                increment_status_count("No Info")
             else:
                 build_problem_occurrences = teamcity_client.get_build_problem_occurrences(
                     build_configuration['builds']['build'][0]['id'])
@@ -67,4 +80,5 @@ if teamcityServer:
                                  "buildLog": processed_build_log,
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id']),
                                  "buildLogUrl": "%s/downloadBuildLog.html?buildId=%s" % (teamcityServer["url"], build_configuration['builds']['build'][0]['id'])})
-    data = {"projectStatuses": project_statuses}
+                increment_status_count(build_configuration['builds']['build'][0]['status'])
+    data = {"projectStatuses": project_statuses, "statusCount": status_count, "statusOptions": status_options}
