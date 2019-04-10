@@ -8,12 +8,11 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-import logging
-
 from dateutil.parser import parse
+from org.slf4j import Logger, LoggerFactory
 from teamcity import TeamCityClient
 
-logger = logging.getLogger("TeamCity")
+logger = LoggerFactory.getLogger("com.xebialabs")
 logger.info("Executing BuildConfigurationsStatusTile")
 data = {}
 if teamcityServer:

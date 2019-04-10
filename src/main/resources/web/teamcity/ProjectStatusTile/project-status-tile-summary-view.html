@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>ECharts</title>
     <!-- including ECharts file -->
     <script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
 </head>
+
 <body>
     <!-- prepare a DOM container with width and height -->
     <div id="main" style="width: 600px;height:400px;"></div>
@@ -16,25 +18,45 @@
         // specify chart configuration item and data
         var option = {
             title: {
-                text: 'ECharts entry example'
+                text: 'TeamCity Project Overview',
+                x: 'center'
             },
-            tooltip: {},
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
             legend: {
-                data:['Sales']
+                orient: 'horizontal',
+                bottom: 'bottom',
+                data: ['Success', 'Failed', 'Cancelled', 'No runs', 'Unknown']
             },
-            xAxis: {
-                data: ["shirt","cardign","chiffon shirt","pants","heels","socks"]
-            },
-            yAxis: {},
-            series: [{
-                name: 'Sales',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-            }]
+            series: [
+                {
+                    name: 'Statuses',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                        { value: 335, name: 'Success' },
+                        { value: 310, name: 'Failed' },
+                        { value: 234, name: 'Cancelled' },
+                        { value: 135, name: 'No runs' },
+                        { value: 1548, name: 'Unknown' }
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
         };
 
         // use configuration item and data specified to show chart
         myChart.setOption(option);
     </script>
 </body>
+
 </html>
