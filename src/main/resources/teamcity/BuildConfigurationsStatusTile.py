@@ -15,6 +15,18 @@ from teamcity import TeamCityClient
 logger = LoggerFactory.getLogger("com.xebialabs")
 logger.info("Executing BuildConfigurationsStatusTile")
 data = {}
+status_count = []
+status_options = []
+
+def increment_status_count(status):
+    if status not in status_options:
+        status_options.append(status)
+    if not any(d['name'] == status for d in status_count):
+        status_count.append({'name':status,'value':0})
+    d = next(d for i,d in enumerate(status_count) if d['name'] == status)
+    d['value'] += 1
+    logger.info("status_count [%s]" % status_count)
+
 if teamcityServer:
     teamcity_client = TeamCityClient(
         teamcityServer, username=None, password=None, logger=logger)
@@ -42,6 +54,7 @@ if teamcityServer:
                                  "statusText": "No builds to display", "problemOccurrences": {},
                                  "testOccurrences": {}, "finishDate": "N/A",
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id'])})
+                increment_status_count("No Info")
             else:
                 build_problem_occurrences = teamcity_client.get_build_problem_occurrences(
                     build_configuration['builds']['build'][0]['id'])
@@ -66,4 +79,5 @@ if teamcityServer:
                                  "buildLog": processed_build_log,
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id']),
                                  "buildLogUrl": "%s/downloadBuildLog.html?buildId=%s" % (teamcityServer["url"], build_configuration['builds']['build'][0]['id'])})
-    data = {"projectStatuses": project_statuses}
+                increment_status_count(build_configuration['builds']['build'][0]['status'])
+    data = {"projectStatuses": project_statuses, "statusCount": status_count, "statusOptions": status_options}

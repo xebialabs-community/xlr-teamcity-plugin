@@ -12,50 +12,50 @@
     <!-- prepare a DOM container with width and height -->
     <div id="main" style="width: 600px;height:400px;"></div>
     <script type="text/javascript">
-        // based on prepared DOM, initialize echarts instance
-        var myChart = echarts.init(document.getElementById('main'));
+        window.addEventListener("xlrelease.load", function () {
+            window.xlrelease.queryTileData(function (response) {
+                var statusCount = response.data.data.statusCount;
+                var statusOptions = response.data.data.statusOptions;
+                // based on prepared DOM, initialize echarts instance
+                var myChart = echarts.init(document.getElementById('main'));
 
-        // specify chart configuration item and data
-        var option = {
-            title: {
-                text: 'TeamCity Project Overview',
-                x: 'center'
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            legend: {
-                orient: 'horizontal',
-                bottom: 'bottom',
-                data: ['Success', 'Failed', 'Cancelled', 'No runs', 'Unknown']
-            },
-            series: [
-                {
-                    name: 'Statuses',
-                    type: 'pie',
-                    radius: '55%',
-                    center: ['50%', '60%'],
-                    data: [
-                        { value: 335, name: 'Success' },
-                        { value: 310, name: 'Failed' },
-                        { value: 234, name: 'Cancelled' },
-                        { value: 135, name: 'No runs' },
-                        { value: 1548, name: 'Unknown' }
-                    ],
-                    itemStyle: {
-                        emphasis: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                // specify chart configuration item and data
+                var option = {
+                    title: {
+                        text: 'TeamCity Project Overview',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'horizontal',
+                        bottom: 'bottom',
+                        data: statusOptions
+                    },
+                    series: [
+                        {
+                            name: 'Statuses',
+                            type: 'pie',
+                            radius: '55%',
+                            center: ['50%', '60%'],
+                            data: statusCount,
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
                         }
-                    }
-                }
-            ]
-        };
+                    ]
+                };
 
-        // use configuration item and data specified to show chart
-        myChart.setOption(option);
+                // use configuration item and data specified to show chart
+                myChart.setOption(option);
+            });
+        });
     </script>
 </body>
 
