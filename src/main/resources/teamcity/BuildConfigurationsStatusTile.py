@@ -9,7 +9,7 @@
 #
 
 from dateutil.parser import parse
-from org.slf4j import Logger, LoggerFactory
+from org.slf4j import LoggerFactory
 from teamcity import TeamCityClient
 
 logger = LoggerFactory.getLogger("com.xebialabs")
