@@ -27,13 +27,14 @@
             window.xlrelease.queryTileData(function (response) {
                 var statusCount = response.data.data.statusCount;
                 var statusOptions = response.data.data.statusOptions;
+                var projectName = response.data.data.projectName;
                 // based on prepared DOM, initialize echarts instance
                 var myChart = echarts.init(document.getElementById('main'));
 
                 // specify chart configuration item and data
                 var option = {
                     title: {
-                        text: 'TeamCity Project Overview',
+                        text: projectName,
                         x: 'center'
                     },
                     tooltip: {
