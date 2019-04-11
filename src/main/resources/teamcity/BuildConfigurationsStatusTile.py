@@ -81,4 +81,4 @@ if teamcityServer:
                                  "statusUrl": "%s/app/rest/builds/buildType:(id:%s)/statusIcon" % (teamcityServer["url"], build_configuration['id']),
                                  "buildLogUrl": "%s/downloadBuildLog.html?buildId=%s" % (teamcityServer["url"], build_configuration['builds']['build'][0]['id'])})
                 increment_status_count(build_configuration['builds']['build'][0]['status'])
-    data = {"projectStatuses": project_statuses, "statusCount": status_count, "statusOptions": status_options}
+    data = {"projectName": project_names[0], "projectStatuses": project_statuses, "statusCount": status_count, "statusOptions": status_options}
