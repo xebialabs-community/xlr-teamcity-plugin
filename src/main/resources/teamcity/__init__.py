@@ -8,6 +8,7 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from datetime import datetime, timedelta
 import os
 import tempfile
 
@@ -155,6 +156,13 @@ class TeamCityClient(object):
     def get_latest_successful_build(self, build_configuration_id):
         request_url = self.host + \
             "/app/rest/builds/?locator=buildType:(id:%s),status:SUCCESS,count:1&fields=build(number,status)" % build_configuration_id
+        return self._get_response(request_url)
+
+    def get_builds(self, variables):
+        dt = datetime.utcnow() - timedelta(days=variables['numberOfDays'])
+        request_url = self.host + \
+            "/app/rest/builds/?locator=affectedProject:(id:%s),sinceDate:%s&fields=build(id,number,startDate,finishDate,webUrl,buildTypeId)" % (
+                variables['project'],dt.strftime("%Y%m%dT%H%M%S")+"%2B0000")
         return self._get_response(request_url)
 
     def _get_response(self, request_url):
