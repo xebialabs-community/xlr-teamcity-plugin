@@ -13,9 +13,6 @@ from operator import itemgetter
 from org.slf4j import LoggerFactory
 from teamcity import TeamCityClient
 
-import teamcity
-reload(teamcity)
-
 logger = LoggerFactory.getLogger("com.xebialabs")
 logger.info("Executing LongestBuildsTile")
 
