@@ -32,5 +32,3 @@ if teamcityServer:
     sorted_builds = sorted(builds, key=itemgetter(0))
     sorted_builds.insert(0,["time","buildConfiguration","number"])
     data = {"builds" : sorted_builds[:11]}
-    
-
