@@ -22,10 +22,11 @@ if teamcityServer:
         teamcityServer, username=None, password=None, logger=logger)
     response = teamcity_client.get_builds(locals())
     for build in response['build']:
-        start_dt = parse(build['startDate'])
-        finish_dt = parse(build['finishDate'])
+        start_dt = parse(build['startDate'], ignoretz = True)
+        finish_dt = parse(build['finishDate'], ignoretz = True)
         delta = finish_dt.getTime() - start_dt.getTime()
-        builds.append([delta//1000,build['buildTypeId'],build['number']])
-    sorted_builds = sorted(builds, key=itemgetter(0))
+        builds.append([delta//1000,build['buildTypeId']+ " - " +build['number'],build['number']])
+    sorted_builds = sorted(builds, key=itemgetter(0), reverse=True)
+    sorted_builds = sorted(sorted_builds[:10], key=itemgetter(0))
     sorted_builds.insert(0,["time","buildConfiguration","number"])
-    data = {"builds" : sorted_builds[:11]}
+    data = {"builds" : sorted_builds}
