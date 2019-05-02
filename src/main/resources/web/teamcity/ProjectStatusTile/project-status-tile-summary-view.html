@@ -13,15 +13,33 @@
 <html>
 
 <head>
+    <style type="text/css">
+        .container {
+            display: grid;
+            grid-template-columns: auto 10px;
+        }
+
+        .ui-tooltip {
+            white-space: pre-line;
+        }
+    </style>
     <meta charset="utf-8">
     <title>ECharts</title>
     <!-- including ECharts file -->
     <script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <!-- prepare a DOM container with width and height -->
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <div class="container">
+        <div id="main" style="width: 600px;height:400px;"></div>
+        <div class="ui-icon ui-icon-info" title=""></div>
+    </div>
     <script type="text/javascript">
         window.addEventListener("xlrelease.load", function () {
             window.xlrelease.queryTileData(function (response) {
@@ -66,6 +84,20 @@
 
                 // use configuration item and data specified to show chart
                 myChart.setOption(option);
+                $(function () {
+                    $(document).tooltip({
+                        content: function () {
+                            var element = $(this);
+                            if (element.is("[title]")) {
+                                return "SUCCESS: Successful Builds\n" +
+                                       "FAILURE: Failed Builds\n" +
+                                       "UNKNOWN: Cancelled Builds\n" +
+                                       "ERROR: Some error\n" +
+                                       "No Info: The builds have never been started"
+                            }
+                        }
+                    });
+                });
             });
         });
     </script>

@@ -86,7 +86,8 @@ Place the latest released version under the `plugins` dir.
 ## Tiles
 
 -   BuildConfigurationsStatusTile: Displays the build status for all Build Types within a certain project. Remark: The rendering of the status images is browser based.
-
+-   ProjectStatusTile: Display the status for a project.
+-   LongestBuildsTile: Display the longest builds for a project.
 
 [xlr-teamcity-plugin-travis-image]: https://travis-ci.org/xebialabs-community/xlr-teamcity-plugin.svg?branch=master
 

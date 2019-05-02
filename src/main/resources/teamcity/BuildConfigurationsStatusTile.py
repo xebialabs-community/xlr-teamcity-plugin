@@ -17,7 +17,7 @@ logger.info("Executing BuildConfigurationsStatusTile")
 data = {}
 status_count = []
 status_options = []
-status_colors = {'SUCCESS':'green','UNKNOWN':'orange','FAILURE':'red','No Info':'gray'}
+status_colors = {'SUCCESS':'green','UNKNOWN':'orange','FAILURE':'red','ERROR':'yellow','No Info':'gray'}
 
 def increment_status_count(status):
     if status not in status_options:
