@@ -2,8 +2,8 @@ language: java
 script: "./gradle/buildViaTravis.sh"
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 deploy:
   provider: releases
   api_key:
@@ -17,4 +17,4 @@ deploy:
     repo: xebialabs-community/xlr-teamcity-plugin
 notifications:
   slack:
-    secure: Qt2t2omuFxCZchFtWFvQHr1twq/i1u02+/YWK+tcNQg3d5NOUmGUumjiYt7sfugAppiEdagevnwS77ffHLdvCuSUxf+l6aNEx1tXtO9TKB//BxW6o9TdL82P2ILDe5yk6wFm1lZ+aVrWgdgW0CfQOFVnXDwneS9RsUU00/tiCWcOzQbcnOa5FUl1GO55fs8rJ38LCyPCNWC8UqehN5QNJK1uJXrW4MzTiVh0Og3G85JQ6k0lzxcLgrNLGJqcF5v6y3eVO45IQkc140e2Quyh+g1xVFu7KNJplVgCEfwQY/ElEJKdAaS1uvzSdrB/hZE4KJPNv/9q+/Opbi6AnWVfc/XKOaG9zunxiXtDkyvYrvS+N4a5R+4vxCYa2KaonuCiWZZCxVtlZbsZ0xC1gArKkTK7JGuGYUQ18BOW6IIuruA7BtU5XR0PvnxCjeU8HMblycTT/kf4+TYUeWl7MdThuQrALetx/YEGOj54K2wTG81aACc5z58TWbObisGWA143++3DritLEkx9GPCYnTog+7C1aof0bLyHEQwjsEZMC324Nane3UwrmnH9tgBl0oz/lGStrWMlosM5ygKH3flFpQQ6PybxhkefmH4eMKzZWYsYKxBfy9lZkwtJxDuHgHnAFffHNa/XC3dHeqy4hg9BfGLngQ1dXoBya3AFIqaKEpk=
+    secure: D+oL2v72lveBMgrtL+PZl4MLiagTB34GJRb2OF4h8ossezGne+r+WtVBDDeKcxyWl6faroDl8OEBCRLxBk0JXBrqmAZUuriK62VdW0P6UPmw/imQp7k5YgIUxoBIXJLCREkW6xXrZ7iLgm2M3mnWxEY1FRDIj1qyKJcHiuICB3VQTK3iG76GpdBBMDVSC9NyPHUtHtHcZSnsOosyZ/+q5K5mxtuZ3TuUO6sMwkh0wclzRjDonLWMDhlX7ul+N8RrKSst8cs9EQ1YiYVXJ1Og4fv5HUELFBbrfdSMiQE55CfSSsmfjIimksNCCMfGDGgrnXMMY5AZPZnnYKq4ym/LUWZ8eUi3sSHa8+QsTUudawrjd0dNd4kObwEhuDJhRJSmePxF/t0wF4/wdcF4CFFC8m2Onw0XLM9403bn9NIU56GD29XxZ9HsDfHHNrkM6M2IL3gIevHZHhQbvkaekFRvYSR2Tj0EZ5nwysxrocTnCUY3tuYLEWOkGLudahGIiIH1LAZpzNvlErf+2zDY3Xqw6zVub2rFFUSYfM7bhIPTakADX4BMJ+Cb2xI0pBbvWCoxmdVZ8LXzQN5h3ZZ8hOymSRX37KGr7md35BXSyE2/GrZdblNSGQWVzR1Xba/vXroPP6DWcX68tFkadK2xov11l0sOqGa+td3OFwvL8AS+CpI=
