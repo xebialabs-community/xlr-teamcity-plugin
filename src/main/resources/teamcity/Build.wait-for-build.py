@@ -1,5 +1,5 @@
 #
-# Copyright 2019 XEBIALABS
+# Copyright 2020 XEBIALABS
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 #
@@ -23,10 +23,14 @@ if response['state'] == 'finished':
     buildNumber = response['number']
     # Have a build completed
     if response['status'] == 'SUCCESS':
-        print('Build successful - build ' + str(buildNumber))
+        task.setStatusLine(response['status'])
+        print('The build was successful (build {})'.format(buildNumber))
+        print('[{0}]({0})'.format(response['webUrl']))
         sys.exit(0)
     else:
-        print('Build failed - build ' + str(buildNumber))
+        task.setStatusLine(response['status'])
+        print('The build failed (build {})'.format(buildNumber))
+        print('[{0}]({0})'.format(response['webUrl']))
         print(response)
         sys.exit(1)
 else:
