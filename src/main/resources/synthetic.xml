@@ -78,74 +78,19 @@
         <property name="buildNumber" category="variables" required="false" description="Received build number"/>
     </type>
 
-    <type type="teamcity.BuildConfigurationsStatusTile" label="TeamCity Build Configurations Status" extends="xlrelease.Tile" description="Display the status for all build configurations in a project.">
-
+    <type type="teamcity.LatestBuildsTile" label="TeamCity Latest Builds" extends="xlrelease.Tile" description="Display the latest builds for a project">
         <!-- Path to the HTML template of the dashboard view of the tile -->
-        <property name="uri" hidden="true" default="teamcity/BuildConfigurationsStatusTile/build-configurations-status-tile-summary-view.html" />
+        <property name="uri" hidden="true" default="teamcity/LatestBuildsTile/index.html" />
         <!-- Title of the tile, this property is predefined in the parent type, but here you override its default value -->
-        <property name="title" description="Display name of the tile" default="Build Configurations Status"/>
-
+        <property name="title" description="Display name of the tile" default="Latest Builds"/>
         <property name="supportedScopes" kind="list_of_string" default="global,folder,release" hidden="true"/>
-        <property name="expirationTime" kind="integer" hidden="true" default="10" description="Expiration time for a tile cache (in seconds)."/>
 
         <!-- Tile configuration properties -->
         <property category="input" name="teamcityServer" referenced-type="teamcity.Server" kind="ci" label="Server" description="TeamCity server id to connect to."/>
         <property category="input" name="username" required="false" description="Overrides the username used to connect to the server."/>
         <property category="input" name="password" password="true" required="false" description="Overrides the password used to connect to the server."/>
-        <property category="input" name="project" required="true" default="" description="Project id to fetch all the build configurations from."/>
-        <property category="input" name="filter" required="true" kind="enum" description="Specify which statuses to see (Success|Failed|All).">
-            <enum-values>
-                <value>Failed</value>
-                <value>Success</value>
-                <value>All</value>
-            </enum-values>
-        </property>
-
-    </type>
-
-    <type type="teamcity.ProjectStatusTile" label="TeamCity Project Status" extends="xlrelease.Tile" description="Display the status for a project.">
-        <property name="scriptLocation" default="teamcity/BuildConfigurationsStatusTile.py" hidden="true" />
-        
-        <!-- Path to the HTML template of the dashboard view of the tile -->
-        <property name="uri" hidden="true" default="teamcity/ProjectStatusTile/project-status-tile-summary-view.html" />
-        <property name="detailsUri" hidden="true" default="teamcity/BuildConfigurationsStatusTile/build-configurations-status-tile-summary-view.html" />
-        <!-- Title of the tile, this property is predefined in the parent type, but here you override its default value -->
-        <property name="title" description="Display name of the tile" default="Project Status"/>
-
-        <property name="supportedScopes" kind="list_of_string" default="global,folder,release" hidden="true"/>
-        <property name="expirationTime" kind="integer" hidden="true" default="10" description="Expiration time for a tile cache (in seconds)."/>
-
-        <!-- Tile configuration properties -->
-        <property category="input" name="teamcityServer" referenced-type="teamcity.Server" kind="ci" label="Server" description="TeamCity server id to connect to."/>
-        <property category="input" name="username" required="false" description="Overrides the username used to connect to the server."/>
-        <property category="input" name="password" password="true" required="false" description="Overrides the password used to connect to the server."/>
-        <property category="input" name="project" required="true" default="" description="Project id to fetch all the build configurations from."/>
-        <property category="input" name="filter" required="true" kind="enum" description="Specify which statuses to see in details (Success|Failed|All).">
-            <enum-values>
-                <value>Failed</value>
-                <value>Success</value>
-                <value>All</value>
-            </enum-values>
-        </property>
-
-    </type>
-
-    <type type="teamcity.LongestBuildsTile" label="TeamCity Longest Builds" extends="xlrelease.Tile" description="Display the longest builds for a project.">
-        <!-- Path to the HTML template of the dashboard view of the tile -->
-        <property name="uri" hidden="true" default="teamcity/LongestBuildsTile/longest-builds-tile-summary-view.html" />
-        <!-- Title of the tile, this property is predefined in the parent type, but here you override its default value -->
-        <property name="title" description="Display name of the tile" default="Longest builds"/>
-
-        <property name="supportedScopes" kind="list_of_string" default="global,folder,release" hidden="true"/>
-        <property name="expirationTime" kind="integer" hidden="true" default="10" description="Expiration time for a tile cache (in seconds)."/>
-
-        <!-- Tile configuration properties -->
-        <property category="input" name="teamcityServer" referenced-type="teamcity.Server" kind="ci" label="Server" description="TeamCity server id to connect to."/>
-        <property category="input" name="username" required="false" description="Overrides the username used to connect to the server."/>
-        <property category="input" name="password" password="true" required="false" description="Overrides the password used to connect to the server."/>
-        <property category="input" name="project" required="true" default="_root" description="Project id to fetch all the builds from."/>
-        <property category="input" name="numberOfDays" label="# of Days" required="true" kind="integer" default="3" description="Number of days to go back to fetch build execution times."/>
-
+        <property category="input" name="project" required="true" default="_root" description="Project ID to fetch all the builds from."/>
+        <property category="input" name="count" required="true" kind="integer" default="10" description="Number of latest builds to display."/>
     </type>
 
 </synthetic>

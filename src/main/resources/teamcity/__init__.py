@@ -166,6 +166,13 @@ class TeamCityClient(object):
                 variables['project'],dt.strftime("%Y%m%dT%H%M%S")+"%2B0000")
         return self._get_response(request_url)
 
+    def get_n_builds(self, variables):
+        request_url = self.host + \
+            "/app/rest/builds?locator=affectedProject:(id:%s),count:%s&fields=build(id,status,state,webUrl,queuedDate,startDate,finishDate)" % (
+                variables['project'], variables['count']
+            )
+        return self._get_response(request_url)
+
     def _get_response(self, request_url):
         response = requests.get(request_url, headers={'Accept': 'application/json'}, auth=HTTPBasicAuth(self.username, self.password),
                                 proxies=self.proxy, verify=False)
