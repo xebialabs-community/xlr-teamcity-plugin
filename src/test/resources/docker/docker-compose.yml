@@ -7,18 +7,29 @@
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+services:
+  xlr:
+    image: xebialabs/xl-release:23.3
+    environment:
+      - ADMIN_PASSWORD=password123
+      - ACCEPT_EULA=Y
+    volumes:
+      - ./xlr/archive:/opt/xebialabs/xl-release-server/archive
+      - ./xlr/conf:/opt/xebialabs/xl-release-server/conf
+      - ./xlr/ext:/opt/xebialabs/xl-release-server/ext
+      - ./xlr/hotfix:/opt/xebialabs/xl-release-server/hotfix
+      - ./xlr/plugins:/opt/xebialabs/xl-release-server/plugins
+      - ./xlr/repository:/opt/xebialabs/xl-release-server/repository
+      - ./xlr/reports:/opt/xebialabs/xl-release-server/repository
+    links:
+      - teamcity
+    ports:
+      - "15516:5516"
 
-xlr:
-  image: xebialabsunsupported/xlr_dev_run:8.5.4
-  volumes:
-    - ~/xl-licenses:/license
-    - ./../../../../:/data
-  links:
-   - teamcity
-  ports:
-   - "15516:5516"
-
-teamcity:
-  image: jetbrains/teamcity-server:2018.2.3
-  ports:
-     - "18881:8111"
+  teamcity:
+    image: jetbrains/teamcity-server:2024.07.3
+    volumes:
+      - ./teamcity/data:/data/teamcity_server/datadir
+      - ./teamcity/logs:/opt/teamcity/logs
+    ports:
+      - "18881:8111"
