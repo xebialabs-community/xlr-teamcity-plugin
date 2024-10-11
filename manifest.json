@@ -1,0 +1,48 @@
+{
+  "id": {
+    "artifactId": "xlr-teamcity-plugin",
+    "groupId": "com.xebialabs.xlrelease.plugins",
+    "version": "2.0.5"
+  },
+  "metadata": {
+    "updatedDate": "2024-10-11",
+    "logo" : "https://upload.wikimedia.org/wikipedia/commons/8/8e/TeamCity_Icon.png",
+    "popularity":"3",
+    "rating" : "3",
+    "reviewed" : "10",
+    "capability": ["TeamCity plugin"],
+    "categories": [
+      "CI/CD Tool"
+    ],
+    "description": "The TeamCity plugin for XL Release that allows you to use TeamCity to build code as part of your templates and release. This plugin also allows you to manage Agents and Agent Pools in TeamCity.",
+    "features": [
+      "Code build and associated operations"
+    ],
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/xebialabs-community/xlr-teamcity-plugin"
+      },
+      {
+        "name": "Documentation",
+        "url": "https://github.com/xebialabs-community/xlr-teamcity-plugin#readme"
+      }
+    ],
+    "maturity": "Mature",
+    "name": "TeamCity Plugin",
+    "requirements": {
+      "product": "Release",
+      "versions": [
+        "== 24.1.x","23.3.x","22.2.x","22.1.x","22.0.x"
+      ]
+    },
+    "screenshots": [
+    ],
+    "supportedBy": "Community",
+    "author": {
+        "author": [],
+        "Community": ["CSM"],
+        "Partner": []
+    }
+  }
+}
