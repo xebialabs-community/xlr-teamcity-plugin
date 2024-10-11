@@ -112,6 +112,7 @@ class TeamCityClient(object):
     def teamcity_build(self, variables):
         request_url = self.host + "/app/rest/buildQueue"
         content = {'buildType': {'id': variables['buildID']}}
+        content['branchName'] = variables['branchName']
         if len(variables['buildProperties']) > 0:
             content['properties'] = {"property": []}
             for prop in variables['buildProperties'].keys():
