@@ -23,6 +23,7 @@ Place the latest released version under the `plugins` dir.
     -   `username` - Used to override the TeamCity username - optional
     -   `password` - Used to override the TeamCity password - optional
     -   `buildConfID` - The buildConfID for the TeamCity build job, usually found in the settings screen for the build job.
+    -   `branchName` - The branchName for the TeamCity build job if a non-default branch is used - optional
     -   `buildProperties` - A set of key value pairs to submit to configure the build job
     -   `buildNumber` - Output field where the build number will be set on successful completion
 

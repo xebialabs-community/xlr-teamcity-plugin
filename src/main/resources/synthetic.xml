@@ -25,6 +25,7 @@
     <type type="teamcity.Build" extends="teamcity.Task">
         <property name="scriptLocation" default="teamcity/Build.py" hidden="true"/>
         <property name="buildID" category="input" label="Build Conf ID" required="true"/>
+        <property name="branchName" category="input" label="Branch Name" required="false"/>
         <property name="buildProperties" category="input" kind="map_string_string" label="Build Properties" required="false" />
         <property name="pollInterval" category="input" kind="integer" default="5"/>
 
