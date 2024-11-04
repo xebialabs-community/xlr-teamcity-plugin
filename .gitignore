@@ -17,4 +17,4 @@ build/
 *.log
 supervisord.*
 .classpath
-
+**/*.swp
