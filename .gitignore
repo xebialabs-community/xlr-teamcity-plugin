@@ -20,3 +20,4 @@ supervisord.*
 src/test/resources/docker/teamcity/
 src/test/resources/docker/xlr/
 gradle/wrapper/*.zip
+**/*.swp
