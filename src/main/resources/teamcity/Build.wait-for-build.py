@@ -16,30 +16,31 @@ from teamcity import TeamCityClient
 logger = logging.getLogger("TeamCity")
 logger.info("Executing %s" % task.getTaskType())
 
-teamcity_client = TeamCityClient(teamcityServer, username=None, password=None, logger=logger)
+teamcity_client = TeamCityClient(
+    teamcityServer, username=None, password=None, logger=logger
+)
 response = teamcity_client.teamcity_wait_for_build(locals())
 
-if response['state'] == 'finished':
-    buildNumber = response['number']
+if response["state"] == "finished":
+    buildNumber = response["number"]
     # Have a build completed
-    if response['status'] == 'SUCCESS':
-        task.setStatusLine(response['status'])
-        print('The build was successful (build {})'.format(buildNumber))
-        print('[{0}]({0})'.format(response['webUrl']))
+    if response["status"] == "SUCCESS":
+        task.setStatusLine(response["status"])
+        print("The build was successful (build {})".format(buildNumber))
+        print("[{0}]({0})".format(response["webUrl"]))
         sys.exit(0)
     else:
-        task.setStatusLine(response['status'])
-        print('The build failed (build {})'.format(buildNumber))
-        print('[{0}]({0})'.format(response['webUrl']))
+        task.setStatusLine(response["status"])
+        print("The build failed (build {})".format(buildNumber))
+        print("[{0}]({0})".format(response["webUrl"]))
         print(response)
         sys.exit(1)
 else:
-    if 'waitReason' in response.keys():
+    if "waitReason" in response.keys():
         task.setStatusLine(
-            'Build is ' + response['state'] + \
-            '.  ' + response['waitReason'] + '...'
+            "Build is " + response["state"] + ".  " + response["waitReason"] + "..."
         )
         task.schedule("teamcity/Build.wait-for-build.py", pollInterval)
     else:
-        task.setStatusLine('Build is ' + response['state'] + '...')
+        task.setStatusLine("Build is " + response["state"] + "...")
         task.schedule("teamcity/Build.wait-for-build.py", pollInterval)

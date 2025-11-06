@@ -15,7 +15,9 @@ from teamcity import TeamCityClient
 logger = logging.getLogger("TeamCity")
 logger.info("Executing %s" % task.getTaskType())
 
-teamcity_client = TeamCityClient(teamcityServer, username=None, password=None, logger=logger)
-method = str(task.getTaskType()).lower().replace('.', '_')
+teamcity_client = TeamCityClient(
+    teamcityServer, username=None, password=None, logger=logger
+)
+method = str(task.getTaskType()).lower().replace(".", "_")
 call = getattr(teamcity_client, method)
 output = call(locals())

@@ -14,7 +14,9 @@ from teamcity import TeamCityClient
 logger = logging.getLogger("TeamCity")
 logger.info("Executing BuildConfigurationTrigger")
 
-teamcity_client = TeamCityClient(teamcityServer, username=None, password=None, logger=logger)
+teamcity_client = TeamCityClient(
+    teamcityServer, username=None, password=None, logger=logger
+)
 
 response = teamcity_client.get_latest_successful_build(buildConfigurationId)
 
