@@ -8,48 +8,50 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }
 
-#main, .chart-container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    width: 100%;
+#main,
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .legend {
-    font-family: 'Open Sans', sans-serif;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    left: 0;
-    bottom: 0;
-    right: 0;
+  font-family: 'Open Sans', sans-serif;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
+
 .legend .legend-item {
-    display: flex;
-    padding: 10px;
-    cursor: pointer;
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .legend .legend-item .icon {
-    height: 20px;
-    width: 30px;
-    border-radius: 6px;
-    margin-right: 6px;
+  height: 20px;
+  width: 30px;
+  border-radius: 6px;
+  margin-right: 6px;
 }

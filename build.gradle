@@ -2,8 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
   id "java"
-  id "com.github.hierynomus.license" version "0.16.1"
-  id 'nebula.release' version '19.0.10'
+  id "com.github.hierynomus.license-base" version "0.16.0"
 }
 
 // For Java 17
@@ -13,23 +12,15 @@ java {
     }
 }
 
-
 repositories {
   mavenLocal()
   mavenCentral()
   maven {
-    url 'https://dist.xebialabs.com/public/maven2'
+    url = 'https://dist.xebialabs.com/public/maven2'
   }
 }
 
-def apiVersion = "24.1.8"
-
-dependencies {
-  implementation "com.xebialabs.deployit:udm-plugin-api:$apiVersion"
-  implementation "org.slf4j:slf4j-api:2.0.12"
-}
-
-version = "2.1.0"
+version = "2.2.0"
 
 if (!project.hasProperty('release.scope')) {
   project.ext['release.scope'] = 'patch'
@@ -49,7 +40,7 @@ processResources.configure {
 }
 
 license {
-  header rootProject.file('License.md')
+  header = rootProject.file('License.md')
   excludes(["**/*.png", "**/vendor/*.*", "**/docker-compose.yml"])
   ext.year = Calendar.getInstance().get(Calendar.YEAR)
   ext.name = 'XEBIALABS'

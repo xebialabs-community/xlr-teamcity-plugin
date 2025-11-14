@@ -10,8 +10,8 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -->
-<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" 
-    xmlns="http://www.xebialabs.com/deployit/synthetic" 
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd"
+    xmlns="http://www.xebialabs.com/deployit/synthetic"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <type type="teamcity.Task" extends="xlrelease.PythonScript" virtual="true">
@@ -25,6 +25,7 @@
     <type type="teamcity.Build" extends="teamcity.Task">
         <property name="scriptLocation" default="teamcity/Build.py" hidden="true"/>
         <property name="buildID" category="input" label="Build Conf ID" required="true"/>
+        <property name="branchName" category="input" label="Branch Name" required="false" />
         <property name="buildProperties" category="input" kind="map_string_string" label="Build Properties" required="false" />
         <property name="pollInterval" category="input" kind="integer" default="5"/>
 
@@ -69,7 +70,6 @@
 
     <type type="teamcity.BuildConfigurationTrigger" extends="xlrelease.ReleaseTrigger">
         <property name="scriptLocation" default="teamcity/BuildConfigurationTrigger.py" hidden="true"/>
-        
         <property name="teamcityServer" category="Repository" referenced-type="teamcity.Server" kind="ci" required="true" />
         <property name="username" category="Repository" description="Overrides the username used to connect to the server." label="Username" required="false"/>
         <property name="password" category="Repository" description="Overrides the password used to connect to the server." password="true" label="Password" required="false"/>

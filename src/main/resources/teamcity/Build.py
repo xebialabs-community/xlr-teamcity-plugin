@@ -15,7 +15,9 @@ from teamcity import TeamCityClient
 logger = logging.getLogger("TeamCity")
 logger.info("Executing %s" % task.getTaskType())
 
-teamcity_client = TeamCityClient(teamcityServer, username=None, password=None, logger=logger)
+teamcity_client = TeamCityClient(
+    teamcityServer, username=None, password=None, logger=logger
+)
 response = teamcity_client.teamcity_build(locals())
-taskID = str(response['id'])
-task.schedule('teamcity/Build.wait-for-build.py')
+taskID = str(response["id"])
+task.schedule("teamcity/Build.wait-for-build.py")

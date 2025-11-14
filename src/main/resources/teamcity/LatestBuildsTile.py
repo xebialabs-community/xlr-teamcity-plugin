@@ -18,5 +18,6 @@ logger.info("Executing LatestBuildsTile")
 
 if teamcityServer:
     teamcity_client = TeamCityClient(
-        teamcityServer, username=None, password=None, logger=logger)
-    data = {"builds" : teamcity_client.get_n_builds(locals())}
+        teamcityServer, username=None, password=None, logger=logger
+    )
+    data = {"builds": teamcity_client.get_n_builds(locals())}
